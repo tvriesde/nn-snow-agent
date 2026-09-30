@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "seed": "insurance-demo-v1",
+  "synthetic": true,
+  "batches": [
+    {
+      "sequence": 1,
+      "path": "baseline/kb_knowledge.json",
+      "kind": "snapshot",
+      "table": "kb_knowledge",
+      "sha256": "579ab62d6efdbd07c011247998644220b83a5dfd8642207d1bd5606623804373",
+      "recordCount": 60
+    },
+    {
+      "sequence": 2,
+      "path": "baseline/incident.json",
+      "kind": "snapshot",
+      "table": "incident",
+      "sha256": "afd1d10257a16d3aee1c8682e5fac264909790c82c890e10f5fb720f14dc1d82",
+      "recordCount": 120
+    },
+    {
+      "sequence": 3,
+      "path": "baseline/problem.json",
+      "kind": "snapshot",
+      "table": "problem",
+      "sha256": "80ad64c3ea385b46db762547210ea4270c0b5ec9c7da5be5bc8c697f425dd90c",
+      "recordCount": 20
+    },
+    {
+      "sequence": 4,
+      "path": "baseline/change_request.json",
+      "kind": "snapshot",
+      "table": "change_request",
+      "sha256": "1c26e145054c668e001b27d2270f21e71a5437094f3278edd2efdf6b01676dec",
+      "recordCount": 15
+    },
+    {
+      "sequence": 5,
+      "path": "baseline/cmdb_ci_business_app.json",
+      "kind": "snapshot",
+      "table": "cmdb_ci_business_app",
+      "sha256": "938bab1be01bc847803af8010ad1083ec0bf3e42e8a8e722f6a1f4d25e57e51b",
+      "recordCount": 12
+    }
+  ]
+}

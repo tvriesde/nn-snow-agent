@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="var(--cp-bg)" />
+  <meta name="description" content="NN-inspired employee IT helpdesk demo: practical guidance, synthetic insurance knowledge, and read-only Azure evidence." />
+  <title>NN · Employee IT Helpdesk Demo</title>
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+      const theme =
+        param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <script>
+    // Normalize explicit light/dark overrides after the standard Clawpilot initializer.
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+      if (param === "light" || param === "dark") document.documentElement.setAttribute("data-theme", param);
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --cp-bg: #f4f1ee;
+      --cp-bg-elevated: #faf8f5;
+      --cp-surface: #ffffff;
+      --cp-surface-soft: #f5f5f5;
+      --cp-border: #dedede;
+      --cp-border-strong: #919191;
+      --cp-text: #242424;
+      --cp-text-muted: #5c5c5c;
+      --cp-text-soft: #6f6f6f;
+      --cp-accent: #c94b00;
+      --cp-accent-hover: #a53e00;
+      --cp-accent-text: #b84400;
+      --cp-brand: #ee6c00;
+      --cp-accent-soft: rgba(238, 108, 0, 0.10);
+      --cp-accent-fg: #ffffff;
+      --cp-success: #16a34a;
+      --cp-danger: #dc2626;
+      --cp-warning: #f59e0b;
+      --cp-link: #b84400;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+      --cp-overlay: rgba(255, 255, 255, 0.8);
+      --cp-panel: rgba(255, 255, 255, 0.86);
+      --cp-panel-strong: rgba(255, 255, 255, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.55);
+      --cp-highlight: rgba(238, 108, 0, 0.16);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --cp-bg: #3d3b3a;
+      --cp-bg-elevated: #343231;
+      --cp-surface: #292929;
+      --cp-surface-soft: #2e2e2e;
+      --cp-border: #474747;
+      --cp-border-strong: #5f5f5f;
+      --cp-text: #dedede;
+      --cp-text-muted: #919191;
+      --cp-text-soft: #b0b0b0;
+      --cp-accent: #ffab70;
+      --cp-accent-hover: #ffc399;
+      --cp-accent-text: #ffb684;
+      --cp-brand: #ffab70;
+      --cp-accent-soft: rgba(255, 171, 112, 0.14);
+      --cp-accent-fg: #1a1a1a;
+      --cp-success: #4ade80;
+      --cp-danger: #f87171;
+      --cp-warning: #fbbf24;
+      --cp-link: #ffb684;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      --cp-overlay: rgba(41, 41, 41, 0.88);
+      --cp-panel: rgba(41, 41, 41, 0.72);
+      --cp-panel-strong: rgba(41, 41, 41, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.04);
+      --cp-highlight: rgba(255, 171, 112, 0.18);
+    }
+    html, body, #root { min-height: 100%; margin: 0; background: var(--cp-bg); color: var(--cp-text); }
+    body { font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; }
+    * { box-sizing: border-box; }
+    :focus-visible { outline: 3px solid var(--cp-link); outline-offset: 3px; }
+    textarea, input { caret-color: var(--cp-accent); }
+    ::selection { background: var(--cp-highlight); }
+    @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+  <noscript>This employee helpdesk requires JavaScript and Microsoft Entra sign-in.</noscript>
+  <div id="root"></div>
+</body>
+</html>

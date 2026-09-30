@@ -1,0 +1,14 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "IndexingSchedule": "0 */15 * * * *",
+    "Source__BlobServiceUri": "https://YOURACCOUNT.blob.core.windows.net",
+    "Source__ContainerName": "servicenow",
+    "State__ContainerName": "indexer-state",
+    "Search__Endpoint": "https://YOURSEARCH.search.windows.net",
+    "Search__IndexName": "servicenow-knowledge",
+    "Authentication__UseDeveloperCredential": "true"
+  }
+}

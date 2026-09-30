@@ -1,0 +1,17 @@
+{
+  "name": "servicenow-knowledge",
+  "fields": [
+    { "name": "id", "type": "Edm.String", "key": true, "filterable": true },
+    { "name": "sourceId", "type": "Edm.String", "filterable": true },
+    { "name": "table", "type": "Edm.String", "filterable": true },
+    { "name": "number", "type": "Edm.String", "searchable": true, "filterable": true },
+    { "name": "title", "type": "Edm.String", "searchable": true },
+    { "name": "content", "type": "Edm.String", "searchable": true },
+    { "name": "application", "type": "Edm.String", "searchable": true, "filterable": true },
+    { "name": "category", "type": "Edm.String", "searchable": true, "filterable": true },
+    { "name": "visibility", "type": "Edm.String", "filterable": true },
+    { "name": "updatedAt", "type": "Edm.DateTimeOffset", "filterable": true, "sortable": true },
+    { "name": "sourceVersion", "type": "Edm.Int64", "filterable": true },
+    { "name": "chunk", "type": "Edm.Int32", "filterable": true }
+  ]
+}

@@ -1,0 +1,4 @@
+bin/
+obj/
+.mcp-tools/
+.mcp-cache/

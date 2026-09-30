@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/backend/">
+    <Project Path="src/backend/Helpdesk.Backend.csproj" />
+  </Folder>
+  <Folder Name="/src/core/">
+    <Project Path="src/core/Helpdesk.Core.csproj" />
+  </Folder>
+  <Folder Name="/src/indexer/">
+    <Project Path="src/indexer/Helpdesk.Indexer.csproj" />
+  </Folder>
+  <Folder Name="/tests/" />
+  <Folder Name="/tests/backend/">
+    <Project Path="tests/backend/Helpdesk.Backend.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/indexer/">
+    <Project Path="tests/indexer/Helpdesk.Indexer.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,424 @@
+{
+  "result": [
+    {
+      "sys_id": "bef8d5f43074b8df2117479ad8252a0f",
+      "number": "PRB0030000",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: Cannot sign in after a password change",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: Confirm the official Claims Workbench address. Close existing browser sessions and open a new session after the password change. Use your corporate account, not a broker account. If the account is locked, contact the service desk through the approved recovery channel. Never share passwords or MFA codes.",
+      "business_service": {
+        "value": "93bb0a317e4bd84479703bedb8cb669d",
+        "display_value": "Claims Workbench",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/93bb0a317e4bd84479703bedb8cb669d"
+      },
+      "category": "identity",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "c3e66197ae82068bf2a9cbe804651e07",
+      "number": "PRB0030001",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: MFA prompts go to an old phone",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: If you still have an approved alternate factor, use it to open the corporate security-information page and update your device. If all registered factors are unavailable, request identity verification through the service desk. Do not approve prompts you did not initiate. MFA cannot be bypassed by the assistant.",
+      "business_service": {
+        "value": "d6096cc0275df67a7024965d663e06c7",
+        "display_value": "Corporate Identity",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/d6096cc0275df67a7024965d663e06c7"
+      },
+      "category": "identity",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "20e91fa14d08a768c76e5c775aa3e356",
+      "number": "PRB0030002",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: Repeated SSO redirects and login loops",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: Use the published Policy Administration URL. Check that the browser profile is signed in with the corporate identity. Try an approved private browser window to isolate stale session cookies. If that works, clear cookies only for the affected application according to corporate browser guidance. Record the time and error code for escalation.",
+      "business_service": {
+        "value": "bc21b3482067174e7ec478c4645a60a3",
+        "display_value": "Policy Administration",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/bc21b3482067174e7ec478c4645a60a3"
+      },
+      "category": "browser",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "955ac1a10479f214f71c77d3ce9d1e70",
+      "number": "PRB0030003",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: Old application URL returns HTTP 404",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: The synthetic portal was renamed from /broker-old to /broker in the demo change record. Open the application from the corporate launcher rather than an old bookmark. Request the current approved URL from the service desk if the launcher is unavailable. This fictional URL change is not evidence about a live Azure deployment.",
+      "business_service": {
+        "value": "7d6bd858a0b6055242fa60f59060e71d",
+        "display_value": "Broker Portal",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/7d6bd858a0b6055242fa60f59060e71d"
+      },
+      "category": "network",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "32650bdfed7ceb1f382969c578723451",
+      "number": "PRB0030004",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: VPN connects but underwriting application does not load",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: Confirm the approved VPN profile and corporate network connection. Reconnect the VPN once, then retry the approved application URL. Capture whether other intranet applications work and whether the error is DNS resolution or a connection timeout. Do not disable endpoint protection or manually change corporate DNS servers.",
+      "business_service": {
+        "value": "7f8ddb2dc0a45bd8b9b32cbd4644be7b",
+        "display_value": "Underwriting Desktop",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/7f8ddb2dc0a45bd8b9b32cbd4644be7b"
+      },
+      "category": "network",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "f8a021570b606c833ba10ed131b2f92b",
+      "number": "PRB0030005",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: Access denied when opening a claim attachment",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: Check whether the claim assignment and document classification allow your team to access the attachment. Request access through the approved document-owner workflow. Do not forward protected claim files to personal email or change the classification to work around access controls. Provide the document identifier, not its contents, when escalating.",
+      "business_service": {
+        "value": "4d74c329dfd6fa8a0a78ab7fce3cd222",
+        "display_value": "Document Vault",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/4d74c329dfd6fa8a0a78ab7fce3cd222"
+      },
+      "category": "access",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "341a891f39d182935bd4a8a8529d184e",
+      "number": "PRB0030006",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: Analytics is slow during month-end processing",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: Check the synthetic maintenance notice and known-problem record for overlapping month-end batch processing. Reduce unnecessary concurrent exports and retry outside the published processing window when practical. Capture the report name, start time, and duration. Historical synthetic incidents do not establish the current health of a real application.",
+      "business_service": {
+        "value": "8753a6901f1a7fbcc504059a0966b5e2",
+        "display_value": "Actuarial Analytics",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/8753a6901f1a7fbcc504059a0966b5e2"
+      },
+      "category": "performance",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "01af2b940818003bf419ad96635251e9",
+      "number": "PRB0030007",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: Report export blocked by data-loss prevention",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: Use the approved reporting workspace and restricted corporate destination. Check the export policy and classification. If a legitimate business export is blocked, ask the data owner and security team to review the policy through the approved process. Never remove protection or upload financial reports to public file-sharing sites.",
+      "business_service": {
+        "value": "800049a87d4afe3b8fabd2cd1d07172f",
+        "display_value": "Finance Reporting",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/800049a87d4afe3b8fabd2cd1d07172f"
+      },
+      "category": "compliance",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "a93fd92d7c1aeee62408a565d3a9cd5b",
+      "number": "PRB0030008",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: Helpdesk URL is unavailable or shows a gateway error",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: Capture the URL, UTC time, and HTTP error. Check live Azure evidence for the mapped helpdesk frontend and backend before concluding that an outage exists. A Running resource state is not HTTP availability. Compare request errors and measured probe history. The lowest-cost Free App Service demo may cold-start or exhaust daily CPU quota; the assistant cannot restart resources.",
+      "business_service": {
+        "value": "657b55495d8195ec849a75267316dd33",
+        "display_value": "Employee IT Helpdesk",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/657b55495d8195ec849a75267316dd33"
+      },
+      "category": "availability",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "80faf4de02368b53dd4bd968315c6fe4",
+      "number": "PRB0030009",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: Remote employee cannot reach internal applications",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: Check device time and the approved VPN client status. Verify the device certificate using the corporate support procedure. Reconnect once and record the displayed error if the issue persists. Escalate certificate renewal to endpoint support; do not install an untrusted certificate or disable certificate validation.",
+      "business_service": {
+        "value": "14a3a21d783ccda2aeb5115d91907c4b",
+        "display_value": "Corporate VPN",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/14a3a21d783ccda2aeb5115d91907c4b"
+      },
+      "category": "network",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "50a3391e92a061b7f2ae1fae4050dc00",
+      "number": "PRB0030010",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: Shared printer and secure scan queue are missing",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: Confirm the office location and approved print service. Reconnect the managed print queue using the corporate software catalog. If the scan destination is missing, ask the document-service owner to confirm your group membership. Never scan policy or claim documents to an unapproved destination.",
+      "business_service": {
+        "value": "8d3cb3ce7da80b06d72b207078ea72d9",
+        "display_value": "Employee Collaboration",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/8d3cb3ce7da80b06d72b207078ea72d9"
+      },
+      "category": "device",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "77470a13cf7b425f90280463c61b2804",
+      "number": "PRB0030011",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: Digital signing fails because a certificate expired",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: Record the certificate-expiry message and application name. Request renewal through the approved certificate-support workflow. Do not roll back the computer clock or bypass signature verification. Existing signed documents should be reviewed by the policy-document team rather than re-signed without authorization.",
+      "business_service": {
+        "value": "832b16f362f0cca69bdd437db34cbe6c",
+        "display_value": "Policy Document Signing",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/832b16f362f0cca69bdd437db34cbe6c"
+      },
+      "category": "identity",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "f707876171c99666d9dfee8664b6993d",
+      "number": "PRB0030012",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: Cannot sign in after a password change",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: Confirm the official Claims Workbench address. Close existing browser sessions and open a new session after the password change. Use your corporate account, not a broker account. If the account is locked, contact the service desk through the approved recovery channel. Never share passwords or MFA codes.",
+      "business_service": {
+        "value": "93bb0a317e4bd84479703bedb8cb669d",
+        "display_value": "Claims Workbench",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/93bb0a317e4bd84479703bedb8cb669d"
+      },
+      "category": "identity",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "6234827f0c2c8482e9cbca05b321978c",
+      "number": "PRB0030013",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: MFA prompts go to an old phone",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: If you still have an approved alternate factor, use it to open the corporate security-information page and update your device. If all registered factors are unavailable, request identity verification through the service desk. Do not approve prompts you did not initiate. MFA cannot be bypassed by the assistant.",
+      "business_service": {
+        "value": "d6096cc0275df67a7024965d663e06c7",
+        "display_value": "Corporate Identity",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/d6096cc0275df67a7024965d663e06c7"
+      },
+      "category": "identity",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "78edcfbd3ec534831391b5d3876ea520",
+      "number": "PRB0030014",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: Repeated SSO redirects and login loops",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: Use the published Policy Administration URL. Check that the browser profile is signed in with the corporate identity. Try an approved private browser window to isolate stale session cookies. If that works, clear cookies only for the affected application according to corporate browser guidance. Record the time and error code for escalation.",
+      "business_service": {
+        "value": "bc21b3482067174e7ec478c4645a60a3",
+        "display_value": "Policy Administration",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/bc21b3482067174e7ec478c4645a60a3"
+      },
+      "category": "browser",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "4c1c8d0939202e67f10495816d30b42c",
+      "number": "PRB0030015",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: Old application URL returns HTTP 404",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: The synthetic portal was renamed from /broker-old to /broker in the demo change record. Open the application from the corporate launcher rather than an old bookmark. Request the current approved URL from the service desk if the launcher is unavailable. This fictional URL change is not evidence about a live Azure deployment.",
+      "business_service": {
+        "value": "7d6bd858a0b6055242fa60f59060e71d",
+        "display_value": "Broker Portal",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/7d6bd858a0b6055242fa60f59060e71d"
+      },
+      "category": "network",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "9581ea3a4b81f81b80e7ab5d91ca8278",
+      "number": "PRB0030016",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: VPN connects but underwriting application does not load",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: Confirm the approved VPN profile and corporate network connection. Reconnect the VPN once, then retry the approved application URL. Capture whether other intranet applications work and whether the error is DNS resolution or a connection timeout. Do not disable endpoint protection or manually change corporate DNS servers.",
+      "business_service": {
+        "value": "7f8ddb2dc0a45bd8b9b32cbd4644be7b",
+        "display_value": "Underwriting Desktop",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/7f8ddb2dc0a45bd8b9b32cbd4644be7b"
+      },
+      "category": "network",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "c99edc0e0a1eec95156cbcccf29ec85f",
+      "number": "PRB0030017",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: Access denied when opening a claim attachment",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: Check whether the claim assignment and document classification allow your team to access the attachment. Request access through the approved document-owner workflow. Do not forward protected claim files to personal email or change the classification to work around access controls. Provide the document identifier, not its contents, when escalating.",
+      "business_service": {
+        "value": "4d74c329dfd6fa8a0a78ab7fce3cd222",
+        "display_value": "Document Vault",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/4d74c329dfd6fa8a0a78ab7fce3cd222"
+      },
+      "category": "access",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "03a29bf6d3ffbe524fa863da761482ed",
+      "number": "PRB0030018",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: Analytics is slow during month-end processing",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: Check the synthetic maintenance notice and known-problem record for overlapping month-end batch processing. Reduce unnecessary concurrent exports and retry outside the published processing window when practical. Capture the report name, start time, and duration. Historical synthetic incidents do not establish the current health of a real application.",
+      "business_service": {
+        "value": "8753a6901f1a7fbcc504059a0966b5e2",
+        "display_value": "Actuarial Analytics",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/8753a6901f1a7fbcc504059a0966b5e2"
+      },
+      "category": "performance",
+      "active": "true",
+      "audience": "employee"
+    },
+    {
+      "sys_id": "2dc8db641e4392c1eed875aaf6a65566",
+      "number": "PRB0030019",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "1",
+      "short_description": "Known problem: Report export blocked by data-loss prevention",
+      "description": "Synthetic historical recurring issue; not a current outage announcement.",
+      "known_error": "true",
+      "problem_state": "104",
+      "priority": "3",
+      "resolution_notes": "Approved workaround: Use the approved reporting workspace and restricted corporate destination. Check the export policy and classification. If a legitimate business export is blocked, ask the data owner and security team to review the policy through the approved process. Never remove protection or upload financial reports to public file-sharing sites.",
+      "business_service": {
+        "value": "800049a87d4afe3b8fabd2cd1d07172f",
+        "display_value": "Finance Reporting",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/800049a87d4afe3b8fabd2cd1d07172f"
+      },
+      "category": "compliance",
+      "active": "true",
+      "audience": "employee"
+    }
+  ]
+}

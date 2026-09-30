@@ -1,0 +1,1444 @@
+{
+  "result": [
+    {
+      "sys_id": "c08466c123fea1922283270d16ea9fb7",
+      "number": "KB0010000",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Cannot sign in after a password change - employee guide 1",
+      "text": "<h2>Cannot sign in after a password change</h2><p>Confirm the official Claims Workbench address. Close existing browser sessions and open a new session after the password change. Use your corporate account, not a broker account. If the account is locked, contact the service desk through the approved recovery channel. Never share passwords or MFA codes.</p><p>Search terms: login logon password expired account locked sign in.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 1.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "identity",
+      "business_service": {
+        "value": "93bb0a317e4bd84479703bedb8cb669d",
+        "display_value": "Claims Workbench",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/93bb0a317e4bd84479703bedb8cb669d"
+      },
+      "assignment_group": {
+        "value": "ac9a9a0cb34ea9dbbcf13b89f088ed14",
+        "display_value": "IT identity Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/ac9a9a0cb34ea9dbbcf13b89f088ed14"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "f580aa398d2db4c83cec553942361e0f",
+      "number": "KB0010001",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "MFA prompts go to an old phone - employee guide 1",
+      "text": "<h2>MFA prompts go to an old phone</h2><p>If you still have an approved alternate factor, use it to open the corporate security-information page and update your device. If all registered factors are unavailable, request identity verification through the service desk. Do not approve prompts you did not initiate. MFA cannot be bypassed by the assistant.</p><p>Search terms: authenticator lost phone multifactor reset MFA.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 1.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "identity",
+      "business_service": {
+        "value": "d6096cc0275df67a7024965d663e06c7",
+        "display_value": "Corporate Identity",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/d6096cc0275df67a7024965d663e06c7"
+      },
+      "assignment_group": {
+        "value": "ac9a9a0cb34ea9dbbcf13b89f088ed14",
+        "display_value": "IT identity Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/ac9a9a0cb34ea9dbbcf13b89f088ed14"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "8729cdede26a64f4163fb4b1b667baf8",
+      "number": "KB0010002",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Repeated SSO redirects and login loops - employee guide 1",
+      "text": "<h2>Repeated SSO redirects and login loops</h2><p>Use the published Policy Administration URL. Check that the browser profile is signed in with the corporate identity. Try an approved private browser window to isolate stale session cookies. If that works, clear cookies only for the affected application according to corporate browser guidance. Record the time and error code for escalation.</p><p>Search terms: sign in loop single sign on SSO redirect cookies.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 1.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "browser",
+      "business_service": {
+        "value": "bc21b3482067174e7ec478c4645a60a3",
+        "display_value": "Policy Administration",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/bc21b3482067174e7ec478c4645a60a3"
+      },
+      "assignment_group": {
+        "value": "e225ead244029bb8e71daa81dedbdecc",
+        "display_value": "IT browser Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/e225ead244029bb8e71daa81dedbdecc"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "b200b46be9dba7a6761767a9fe8eb244",
+      "number": "KB0010003",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Old application URL returns HTTP 404 - employee guide 1",
+      "text": "<h2>Old application URL returns HTTP 404</h2><p>The synthetic portal was renamed from /broker-old to /broker in the demo change record. Open the application from the corporate launcher rather than an old bookmark. Request the current approved URL from the service desk if the launcher is unavailable. This fictional URL change is not evidence about a live Azure deployment.</p><p>Search terms: broken link url address page not found 404.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 1.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "network",
+      "business_service": {
+        "value": "7d6bd858a0b6055242fa60f59060e71d",
+        "display_value": "Broker Portal",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/7d6bd858a0b6055242fa60f59060e71d"
+      },
+      "assignment_group": {
+        "value": "bc324d46f8f172367de1fcff74435d68",
+        "display_value": "IT network Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/bc324d46f8f172367de1fcff74435d68"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "ce3f4b10c87b2aef75a6402c503b3ffa",
+      "number": "KB0010004",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "VPN connects but underwriting application does not load - employee guide 1",
+      "text": "<h2>VPN connects but underwriting application does not load</h2><p>Confirm the approved VPN profile and corporate network connection. Reconnect the VPN once, then retry the approved application URL. Capture whether other intranet applications work and whether the error is DNS resolution or a connection timeout. Do not disable endpoint protection or manually change corporate DNS servers.</p><p>Search terms: VPN DNS split tunnel timeout unable connect.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 1.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "network",
+      "business_service": {
+        "value": "7f8ddb2dc0a45bd8b9b32cbd4644be7b",
+        "display_value": "Underwriting Desktop",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/7f8ddb2dc0a45bd8b9b32cbd4644be7b"
+      },
+      "assignment_group": {
+        "value": "bc324d46f8f172367de1fcff74435d68",
+        "display_value": "IT network Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/bc324d46f8f172367de1fcff74435d68"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "7481072b26e3ff3175dedbd43fa61ce1",
+      "number": "KB0010005",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Access denied when opening a claim attachment - employee guide 1",
+      "text": "<h2>Access denied when opening a claim attachment</h2><p>Check whether the claim assignment and document classification allow your team to access the attachment. Request access through the approved document-owner workflow. Do not forward protected claim files to personal email or change the classification to work around access controls. Provide the document identifier, not its contents, when escalating.</p><p>Search terms: permissions forbidden attachment document 403 access denied.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 1.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "access",
+      "business_service": {
+        "value": "4d74c329dfd6fa8a0a78ab7fce3cd222",
+        "display_value": "Document Vault",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/4d74c329dfd6fa8a0a78ab7fce3cd222"
+      },
+      "assignment_group": {
+        "value": "91abc172848bcd20b0b418e02b9ad816",
+        "display_value": "IT access Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/91abc172848bcd20b0b418e02b9ad816"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "df34c4eed45c19538ad317e8734e2ad0",
+      "number": "KB0010006",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Analytics is slow during month-end processing - employee guide 1",
+      "text": "<h2>Analytics is slow during month-end processing</h2><p>Check the synthetic maintenance notice and known-problem record for overlapping month-end batch processing. Reduce unnecessary concurrent exports and retry outside the published processing window when practical. Capture the report name, start time, and duration. Historical synthetic incidents do not establish the current health of a real application.</p><p>Search terms: slow latency month end batch job timeout.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 1.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "performance",
+      "business_service": {
+        "value": "8753a6901f1a7fbcc504059a0966b5e2",
+        "display_value": "Actuarial Analytics",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/8753a6901f1a7fbcc504059a0966b5e2"
+      },
+      "assignment_group": {
+        "value": "2f13122906ab74ab7465cae612451bfa",
+        "display_value": "IT performance Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/2f13122906ab74ab7465cae612451bfa"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "4e632c045f96d0b45bd78a393b1ef7d0",
+      "number": "KB0010007",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Report export blocked by data-loss prevention - employee guide 1",
+      "text": "<h2>Report export blocked by data-loss prevention</h2><p>Use the approved reporting workspace and restricted corporate destination. Check the export policy and classification. If a legitimate business export is blocked, ask the data owner and security team to review the policy through the approved process. Never remove protection or upload financial reports to public file-sharing sites.</p><p>Search terms: DLP blocked export spreadsheet confidential data.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 1.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "compliance",
+      "business_service": {
+        "value": "800049a87d4afe3b8fabd2cd1d07172f",
+        "display_value": "Finance Reporting",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/800049a87d4afe3b8fabd2cd1d07172f"
+      },
+      "assignment_group": {
+        "value": "105c66d7bc1e97cd941e3d5eedd594d2",
+        "display_value": "IT compliance Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/105c66d7bc1e97cd941e3d5eedd594d2"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "87c9ef862d10d64858457b7f38684e70",
+      "number": "KB0010008",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Helpdesk URL is unavailable or shows a gateway error - employee guide 1",
+      "text": "<h2>Helpdesk URL is unavailable or shows a gateway error</h2><p>Capture the URL, UTC time, and HTTP error. Check live Azure evidence for the mapped helpdesk frontend and backend before concluding that an outage exists. A Running resource state is not HTTP availability. Compare request errors and measured probe history. The lowest-cost Free App Service demo may cold-start or exhaust daily CPU quota; the assistant cannot restart resources.</p><p>Search terms: uptime unavailable HTTP 502 503 application down.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 1.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "availability",
+      "business_service": {
+        "value": "657b55495d8195ec849a75267316dd33",
+        "display_value": "Employee IT Helpdesk",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/657b55495d8195ec849a75267316dd33"
+      },
+      "assignment_group": {
+        "value": "a571c437ef851a8ea6ce6eb80f7f8219",
+        "display_value": "IT availability Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/a571c437ef851a8ea6ce6eb80f7f8219"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "f28053115b589458389417449efe1262",
+      "number": "KB0010009",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Remote employee cannot reach internal applications - employee guide 1",
+      "text": "<h2>Remote employee cannot reach internal applications</h2><p>Check device time and the approved VPN client status. Verify the device certificate using the corporate support procedure. Reconnect once and record the displayed error if the issue persists. Escalate certificate renewal to endpoint support; do not install an untrusted certificate or disable certificate validation.</p><p>Search terms: remote office network VPN certificate connection.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 1.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "network",
+      "business_service": {
+        "value": "14a3a21d783ccda2aeb5115d91907c4b",
+        "display_value": "Corporate VPN",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/14a3a21d783ccda2aeb5115d91907c4b"
+      },
+      "assignment_group": {
+        "value": "bc324d46f8f172367de1fcff74435d68",
+        "display_value": "IT network Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/bc324d46f8f172367de1fcff74435d68"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "435fa2d9d0a335d6c10c0ddb6fa2d43a",
+      "number": "KB0010010",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Shared printer and secure scan queue are missing - employee guide 1",
+      "text": "<h2>Shared printer and secure scan queue are missing</h2><p>Confirm the office location and approved print service. Reconnect the managed print queue using the corporate software catalog. If the scan destination is missing, ask the document-service owner to confirm your group membership. Never scan policy or claim documents to an unapproved destination.</p><p>Search terms: printer secure scan office queue device.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 1.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "device",
+      "business_service": {
+        "value": "8d3cb3ce7da80b06d72b207078ea72d9",
+        "display_value": "Employee Collaboration",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/8d3cb3ce7da80b06d72b207078ea72d9"
+      },
+      "assignment_group": {
+        "value": "f9bf6884134bde571526b74ba6c02bcf",
+        "display_value": "IT device Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/f9bf6884134bde571526b74ba6c02bcf"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "315bd7909b612cea97a10b5e29f88f39",
+      "number": "KB0010011",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Digital signing fails because a certificate expired - employee guide 1",
+      "text": "<h2>Digital signing fails because a certificate expired</h2><p>Record the certificate-expiry message and application name. Request renewal through the approved certificate-support workflow. Do not roll back the computer clock or bypass signature verification. Existing signed documents should be reviewed by the policy-document team rather than re-signed without authorization.</p><p>Search terms: certificate signing expired digital signature.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 1.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "identity",
+      "business_service": {
+        "value": "832b16f362f0cca69bdd437db34cbe6c",
+        "display_value": "Policy Document Signing",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/832b16f362f0cca69bdd437db34cbe6c"
+      },
+      "assignment_group": {
+        "value": "ac9a9a0cb34ea9dbbcf13b89f088ed14",
+        "display_value": "IT identity Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/ac9a9a0cb34ea9dbbcf13b89f088ed14"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "fea393cea34219fa43fee9fbc8096ed9",
+      "number": "KB0010012",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Cannot sign in after a password change - employee guide 2",
+      "text": "<h2>Cannot sign in after a password change</h2><p>Confirm the official Claims Workbench address. Close existing browser sessions and open a new session after the password change. Use your corporate account, not a broker account. If the account is locked, contact the service desk through the approved recovery channel. Never share passwords or MFA codes.</p><p>Search terms: login logon password expired account locked sign in.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 2.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "identity",
+      "business_service": {
+        "value": "93bb0a317e4bd84479703bedb8cb669d",
+        "display_value": "Claims Workbench",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/93bb0a317e4bd84479703bedb8cb669d"
+      },
+      "assignment_group": {
+        "value": "ac9a9a0cb34ea9dbbcf13b89f088ed14",
+        "display_value": "IT identity Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/ac9a9a0cb34ea9dbbcf13b89f088ed14"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "ff599092957c4c3b19a64213296d7cda",
+      "number": "KB0010013",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "MFA prompts go to an old phone - employee guide 2",
+      "text": "<h2>MFA prompts go to an old phone</h2><p>If you still have an approved alternate factor, use it to open the corporate security-information page and update your device. If all registered factors are unavailable, request identity verification through the service desk. Do not approve prompts you did not initiate. MFA cannot be bypassed by the assistant.</p><p>Search terms: authenticator lost phone multifactor reset MFA.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 2.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "identity",
+      "business_service": {
+        "value": "d6096cc0275df67a7024965d663e06c7",
+        "display_value": "Corporate Identity",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/d6096cc0275df67a7024965d663e06c7"
+      },
+      "assignment_group": {
+        "value": "ac9a9a0cb34ea9dbbcf13b89f088ed14",
+        "display_value": "IT identity Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/ac9a9a0cb34ea9dbbcf13b89f088ed14"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "03d8ec5ccf7986b6c5726e4e0ce2cc45",
+      "number": "KB0010014",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Repeated SSO redirects and login loops - employee guide 2",
+      "text": "<h2>Repeated SSO redirects and login loops</h2><p>Use the published Policy Administration URL. Check that the browser profile is signed in with the corporate identity. Try an approved private browser window to isolate stale session cookies. If that works, clear cookies only for the affected application according to corporate browser guidance. Record the time and error code for escalation.</p><p>Search terms: sign in loop single sign on SSO redirect cookies.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 2.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "browser",
+      "business_service": {
+        "value": "bc21b3482067174e7ec478c4645a60a3",
+        "display_value": "Policy Administration",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/bc21b3482067174e7ec478c4645a60a3"
+      },
+      "assignment_group": {
+        "value": "e225ead244029bb8e71daa81dedbdecc",
+        "display_value": "IT browser Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/e225ead244029bb8e71daa81dedbdecc"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "d9af1a632f23f9db1f647cbe985e8b86",
+      "number": "KB0010015",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Old application URL returns HTTP 404 - employee guide 2",
+      "text": "<h2>Old application URL returns HTTP 404</h2><p>The synthetic portal was renamed from /broker-old to /broker in the demo change record. Open the application from the corporate launcher rather than an old bookmark. Request the current approved URL from the service desk if the launcher is unavailable. This fictional URL change is not evidence about a live Azure deployment.</p><p>Search terms: broken link url address page not found 404.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 2.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "network",
+      "business_service": {
+        "value": "7d6bd858a0b6055242fa60f59060e71d",
+        "display_value": "Broker Portal",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/7d6bd858a0b6055242fa60f59060e71d"
+      },
+      "assignment_group": {
+        "value": "bc324d46f8f172367de1fcff74435d68",
+        "display_value": "IT network Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/bc324d46f8f172367de1fcff74435d68"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "5493052f96d16ee5e9e032b5f26a47eb",
+      "number": "KB0010016",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "VPN connects but underwriting application does not load - employee guide 2",
+      "text": "<h2>VPN connects but underwriting application does not load</h2><p>Confirm the approved VPN profile and corporate network connection. Reconnect the VPN once, then retry the approved application URL. Capture whether other intranet applications work and whether the error is DNS resolution or a connection timeout. Do not disable endpoint protection or manually change corporate DNS servers.</p><p>Search terms: VPN DNS split tunnel timeout unable connect.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 2.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "network",
+      "business_service": {
+        "value": "7f8ddb2dc0a45bd8b9b32cbd4644be7b",
+        "display_value": "Underwriting Desktop",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/7f8ddb2dc0a45bd8b9b32cbd4644be7b"
+      },
+      "assignment_group": {
+        "value": "bc324d46f8f172367de1fcff74435d68",
+        "display_value": "IT network Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/bc324d46f8f172367de1fcff74435d68"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "b1804fe04ca36d519f8f14207ce49c39",
+      "number": "KB0010017",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Access denied when opening a claim attachment - employee guide 2",
+      "text": "<h2>Access denied when opening a claim attachment</h2><p>Check whether the claim assignment and document classification allow your team to access the attachment. Request access through the approved document-owner workflow. Do not forward protected claim files to personal email or change the classification to work around access controls. Provide the document identifier, not its contents, when escalating.</p><p>Search terms: permissions forbidden attachment document 403 access denied.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 2.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "access",
+      "business_service": {
+        "value": "4d74c329dfd6fa8a0a78ab7fce3cd222",
+        "display_value": "Document Vault",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/4d74c329dfd6fa8a0a78ab7fce3cd222"
+      },
+      "assignment_group": {
+        "value": "91abc172848bcd20b0b418e02b9ad816",
+        "display_value": "IT access Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/91abc172848bcd20b0b418e02b9ad816"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "d8e7937e870d93a2ba34c6e337e2e872",
+      "number": "KB0010018",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Analytics is slow during month-end processing - employee guide 2",
+      "text": "<h2>Analytics is slow during month-end processing</h2><p>Check the synthetic maintenance notice and known-problem record for overlapping month-end batch processing. Reduce unnecessary concurrent exports and retry outside the published processing window when practical. Capture the report name, start time, and duration. Historical synthetic incidents do not establish the current health of a real application.</p><p>Search terms: slow latency month end batch job timeout.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 2.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "performance",
+      "business_service": {
+        "value": "8753a6901f1a7fbcc504059a0966b5e2",
+        "display_value": "Actuarial Analytics",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/8753a6901f1a7fbcc504059a0966b5e2"
+      },
+      "assignment_group": {
+        "value": "2f13122906ab74ab7465cae612451bfa",
+        "display_value": "IT performance Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/2f13122906ab74ab7465cae612451bfa"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "042f137437955efc6e2933df50bdd07b",
+      "number": "KB0010019",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Report export blocked by data-loss prevention - employee guide 2",
+      "text": "<h2>Report export blocked by data-loss prevention</h2><p>Use the approved reporting workspace and restricted corporate destination. Check the export policy and classification. If a legitimate business export is blocked, ask the data owner and security team to review the policy through the approved process. Never remove protection or upload financial reports to public file-sharing sites.</p><p>Search terms: DLP blocked export spreadsheet confidential data.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 2.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "compliance",
+      "business_service": {
+        "value": "800049a87d4afe3b8fabd2cd1d07172f",
+        "display_value": "Finance Reporting",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/800049a87d4afe3b8fabd2cd1d07172f"
+      },
+      "assignment_group": {
+        "value": "105c66d7bc1e97cd941e3d5eedd594d2",
+        "display_value": "IT compliance Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/105c66d7bc1e97cd941e3d5eedd594d2"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "7c31330f3c6e3206531b0b4f50645292",
+      "number": "KB0010020",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Helpdesk URL is unavailable or shows a gateway error - employee guide 2",
+      "text": "<h2>Helpdesk URL is unavailable or shows a gateway error</h2><p>Capture the URL, UTC time, and HTTP error. Check live Azure evidence for the mapped helpdesk frontend and backend before concluding that an outage exists. A Running resource state is not HTTP availability. Compare request errors and measured probe history. The lowest-cost Free App Service demo may cold-start or exhaust daily CPU quota; the assistant cannot restart resources.</p><p>Search terms: uptime unavailable HTTP 502 503 application down.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 2.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "availability",
+      "business_service": {
+        "value": "657b55495d8195ec849a75267316dd33",
+        "display_value": "Employee IT Helpdesk",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/657b55495d8195ec849a75267316dd33"
+      },
+      "assignment_group": {
+        "value": "a571c437ef851a8ea6ce6eb80f7f8219",
+        "display_value": "IT availability Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/a571c437ef851a8ea6ce6eb80f7f8219"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "5df37b062408ddafdab6e9cb47d4d594",
+      "number": "KB0010021",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Remote employee cannot reach internal applications - employee guide 2",
+      "text": "<h2>Remote employee cannot reach internal applications</h2><p>Check device time and the approved VPN client status. Verify the device certificate using the corporate support procedure. Reconnect once and record the displayed error if the issue persists. Escalate certificate renewal to endpoint support; do not install an untrusted certificate or disable certificate validation.</p><p>Search terms: remote office network VPN certificate connection.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 2.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "network",
+      "business_service": {
+        "value": "14a3a21d783ccda2aeb5115d91907c4b",
+        "display_value": "Corporate VPN",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/14a3a21d783ccda2aeb5115d91907c4b"
+      },
+      "assignment_group": {
+        "value": "bc324d46f8f172367de1fcff74435d68",
+        "display_value": "IT network Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/bc324d46f8f172367de1fcff74435d68"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "ce908773377330c0cc325fb814bfc8c3",
+      "number": "KB0010022",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Shared printer and secure scan queue are missing - employee guide 2",
+      "text": "<h2>Shared printer and secure scan queue are missing</h2><p>Confirm the office location and approved print service. Reconnect the managed print queue using the corporate software catalog. If the scan destination is missing, ask the document-service owner to confirm your group membership. Never scan policy or claim documents to an unapproved destination.</p><p>Search terms: printer secure scan office queue device.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 2.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "device",
+      "business_service": {
+        "value": "8d3cb3ce7da80b06d72b207078ea72d9",
+        "display_value": "Employee Collaboration",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/8d3cb3ce7da80b06d72b207078ea72d9"
+      },
+      "assignment_group": {
+        "value": "f9bf6884134bde571526b74ba6c02bcf",
+        "display_value": "IT device Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/f9bf6884134bde571526b74ba6c02bcf"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "4cf7d3072cf0630e2c7dae14705dcf52",
+      "number": "KB0010023",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Digital signing fails because a certificate expired - employee guide 2",
+      "text": "<h2>Digital signing fails because a certificate expired</h2><p>Record the certificate-expiry message and application name. Request renewal through the approved certificate-support workflow. Do not roll back the computer clock or bypass signature verification. Existing signed documents should be reviewed by the policy-document team rather than re-signed without authorization.</p><p>Search terms: certificate signing expired digital signature.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 2.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "identity",
+      "business_service": {
+        "value": "832b16f362f0cca69bdd437db34cbe6c",
+        "display_value": "Policy Document Signing",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/832b16f362f0cca69bdd437db34cbe6c"
+      },
+      "assignment_group": {
+        "value": "ac9a9a0cb34ea9dbbcf13b89f088ed14",
+        "display_value": "IT identity Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/ac9a9a0cb34ea9dbbcf13b89f088ed14"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "712d33fcb3c0d8429978c17b82979ae2",
+      "number": "KB0010024",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Cannot sign in after a password change - employee guide 3",
+      "text": "<h2>Cannot sign in after a password change</h2><p>Confirm the official Claims Workbench address. Close existing browser sessions and open a new session after the password change. Use your corporate account, not a broker account. If the account is locked, contact the service desk through the approved recovery channel. Never share passwords or MFA codes.</p><p>Search terms: login logon password expired account locked sign in.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 3.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "identity",
+      "business_service": {
+        "value": "93bb0a317e4bd84479703bedb8cb669d",
+        "display_value": "Claims Workbench",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/93bb0a317e4bd84479703bedb8cb669d"
+      },
+      "assignment_group": {
+        "value": "ac9a9a0cb34ea9dbbcf13b89f088ed14",
+        "display_value": "IT identity Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/ac9a9a0cb34ea9dbbcf13b89f088ed14"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "c131cb7581ff038926a9c2d434f2d6dc",
+      "number": "KB0010025",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "MFA prompts go to an old phone - employee guide 3",
+      "text": "<h2>MFA prompts go to an old phone</h2><p>If you still have an approved alternate factor, use it to open the corporate security-information page and update your device. If all registered factors are unavailable, request identity verification through the service desk. Do not approve prompts you did not initiate. MFA cannot be bypassed by the assistant.</p><p>Search terms: authenticator lost phone multifactor reset MFA.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 3.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "identity",
+      "business_service": {
+        "value": "d6096cc0275df67a7024965d663e06c7",
+        "display_value": "Corporate Identity",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/d6096cc0275df67a7024965d663e06c7"
+      },
+      "assignment_group": {
+        "value": "ac9a9a0cb34ea9dbbcf13b89f088ed14",
+        "display_value": "IT identity Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/ac9a9a0cb34ea9dbbcf13b89f088ed14"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "04a5889ed1386f32dace4524a2e8ba42",
+      "number": "KB0010026",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Repeated SSO redirects and login loops - employee guide 3",
+      "text": "<h2>Repeated SSO redirects and login loops</h2><p>Use the published Policy Administration URL. Check that the browser profile is signed in with the corporate identity. Try an approved private browser window to isolate stale session cookies. If that works, clear cookies only for the affected application according to corporate browser guidance. Record the time and error code for escalation.</p><p>Search terms: sign in loop single sign on SSO redirect cookies.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 3.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "browser",
+      "business_service": {
+        "value": "bc21b3482067174e7ec478c4645a60a3",
+        "display_value": "Policy Administration",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/bc21b3482067174e7ec478c4645a60a3"
+      },
+      "assignment_group": {
+        "value": "e225ead244029bb8e71daa81dedbdecc",
+        "display_value": "IT browser Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/e225ead244029bb8e71daa81dedbdecc"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "309e543cbf8c55ca8198a1aff86bee4e",
+      "number": "KB0010027",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Old application URL returns HTTP 404 - employee guide 3",
+      "text": "<h2>Old application URL returns HTTP 404</h2><p>The synthetic portal was renamed from /broker-old to /broker in the demo change record. Open the application from the corporate launcher rather than an old bookmark. Request the current approved URL from the service desk if the launcher is unavailable. This fictional URL change is not evidence about a live Azure deployment.</p><p>Search terms: broken link url address page not found 404.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 3.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "network",
+      "business_service": {
+        "value": "7d6bd858a0b6055242fa60f59060e71d",
+        "display_value": "Broker Portal",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/7d6bd858a0b6055242fa60f59060e71d"
+      },
+      "assignment_group": {
+        "value": "bc324d46f8f172367de1fcff74435d68",
+        "display_value": "IT network Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/bc324d46f8f172367de1fcff74435d68"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "3b7fa5b02937f35a5c3e519b33a6a8bd",
+      "number": "KB0010028",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "VPN connects but underwriting application does not load - employee guide 3",
+      "text": "<h2>VPN connects but underwriting application does not load</h2><p>Confirm the approved VPN profile and corporate network connection. Reconnect the VPN once, then retry the approved application URL. Capture whether other intranet applications work and whether the error is DNS resolution or a connection timeout. Do not disable endpoint protection or manually change corporate DNS servers.</p><p>Search terms: VPN DNS split tunnel timeout unable connect.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 3.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "network",
+      "business_service": {
+        "value": "7f8ddb2dc0a45bd8b9b32cbd4644be7b",
+        "display_value": "Underwriting Desktop",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/7f8ddb2dc0a45bd8b9b32cbd4644be7b"
+      },
+      "assignment_group": {
+        "value": "bc324d46f8f172367de1fcff74435d68",
+        "display_value": "IT network Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/bc324d46f8f172367de1fcff74435d68"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "ba09a6b5e6b0b65470262e18cd5d4f84",
+      "number": "KB0010029",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Access denied when opening a claim attachment - employee guide 3",
+      "text": "<h2>Access denied when opening a claim attachment</h2><p>Check whether the claim assignment and document classification allow your team to access the attachment. Request access through the approved document-owner workflow. Do not forward protected claim files to personal email or change the classification to work around access controls. Provide the document identifier, not its contents, when escalating.</p><p>Search terms: permissions forbidden attachment document 403 access denied.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 3.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "access",
+      "business_service": {
+        "value": "4d74c329dfd6fa8a0a78ab7fce3cd222",
+        "display_value": "Document Vault",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/4d74c329dfd6fa8a0a78ab7fce3cd222"
+      },
+      "assignment_group": {
+        "value": "91abc172848bcd20b0b418e02b9ad816",
+        "display_value": "IT access Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/91abc172848bcd20b0b418e02b9ad816"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "2325ca0461c42772b6c803aae72de06f",
+      "number": "KB0010030",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Analytics is slow during month-end processing - employee guide 3",
+      "text": "<h2>Analytics is slow during month-end processing</h2><p>Check the synthetic maintenance notice and known-problem record for overlapping month-end batch processing. Reduce unnecessary concurrent exports and retry outside the published processing window when practical. Capture the report name, start time, and duration. Historical synthetic incidents do not establish the current health of a real application.</p><p>Search terms: slow latency month end batch job timeout.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 3.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "performance",
+      "business_service": {
+        "value": "8753a6901f1a7fbcc504059a0966b5e2",
+        "display_value": "Actuarial Analytics",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/8753a6901f1a7fbcc504059a0966b5e2"
+      },
+      "assignment_group": {
+        "value": "2f13122906ab74ab7465cae612451bfa",
+        "display_value": "IT performance Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/2f13122906ab74ab7465cae612451bfa"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "16fe89ff38bb9531aa97a7b5e630f500",
+      "number": "KB0010031",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Report export blocked by data-loss prevention - employee guide 3",
+      "text": "<h2>Report export blocked by data-loss prevention</h2><p>Use the approved reporting workspace and restricted corporate destination. Check the export policy and classification. If a legitimate business export is blocked, ask the data owner and security team to review the policy through the approved process. Never remove protection or upload financial reports to public file-sharing sites.</p><p>Search terms: DLP blocked export spreadsheet confidential data.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 3.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "compliance",
+      "business_service": {
+        "value": "800049a87d4afe3b8fabd2cd1d07172f",
+        "display_value": "Finance Reporting",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/800049a87d4afe3b8fabd2cd1d07172f"
+      },
+      "assignment_group": {
+        "value": "105c66d7bc1e97cd941e3d5eedd594d2",
+        "display_value": "IT compliance Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/105c66d7bc1e97cd941e3d5eedd594d2"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "fcb3df5ee970c15b41ac063f98198084",
+      "number": "KB0010032",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Helpdesk URL is unavailable or shows a gateway error - employee guide 3",
+      "text": "<h2>Helpdesk URL is unavailable or shows a gateway error</h2><p>Capture the URL, UTC time, and HTTP error. Check live Azure evidence for the mapped helpdesk frontend and backend before concluding that an outage exists. A Running resource state is not HTTP availability. Compare request errors and measured probe history. The lowest-cost Free App Service demo may cold-start or exhaust daily CPU quota; the assistant cannot restart resources.</p><p>Search terms: uptime unavailable HTTP 502 503 application down.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 3.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "availability",
+      "business_service": {
+        "value": "657b55495d8195ec849a75267316dd33",
+        "display_value": "Employee IT Helpdesk",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/657b55495d8195ec849a75267316dd33"
+      },
+      "assignment_group": {
+        "value": "a571c437ef851a8ea6ce6eb80f7f8219",
+        "display_value": "IT availability Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/a571c437ef851a8ea6ce6eb80f7f8219"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "6261e3b1f58e64b10b935959fa86b861",
+      "number": "KB0010033",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Remote employee cannot reach internal applications - employee guide 3",
+      "text": "<h2>Remote employee cannot reach internal applications</h2><p>Check device time and the approved VPN client status. Verify the device certificate using the corporate support procedure. Reconnect once and record the displayed error if the issue persists. Escalate certificate renewal to endpoint support; do not install an untrusted certificate or disable certificate validation.</p><p>Search terms: remote office network VPN certificate connection.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 3.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "network",
+      "business_service": {
+        "value": "14a3a21d783ccda2aeb5115d91907c4b",
+        "display_value": "Corporate VPN",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/14a3a21d783ccda2aeb5115d91907c4b"
+      },
+      "assignment_group": {
+        "value": "bc324d46f8f172367de1fcff74435d68",
+        "display_value": "IT network Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/bc324d46f8f172367de1fcff74435d68"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "4fd398c4e2536cbab18f403e47308c7f",
+      "number": "KB0010034",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Shared printer and secure scan queue are missing - employee guide 3",
+      "text": "<h2>Shared printer and secure scan queue are missing</h2><p>Confirm the office location and approved print service. Reconnect the managed print queue using the corporate software catalog. If the scan destination is missing, ask the document-service owner to confirm your group membership. Never scan policy or claim documents to an unapproved destination.</p><p>Search terms: printer secure scan office queue device.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 3.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "device",
+      "business_service": {
+        "value": "8d3cb3ce7da80b06d72b207078ea72d9",
+        "display_value": "Employee Collaboration",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/8d3cb3ce7da80b06d72b207078ea72d9"
+      },
+      "assignment_group": {
+        "value": "f9bf6884134bde571526b74ba6c02bcf",
+        "display_value": "IT device Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/f9bf6884134bde571526b74ba6c02bcf"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "6f59ef75731306b240305e21c8ba39bb",
+      "number": "KB0010035",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Digital signing fails because a certificate expired - employee guide 3",
+      "text": "<h2>Digital signing fails because a certificate expired</h2><p>Record the certificate-expiry message and application name. Request renewal through the approved certificate-support workflow. Do not roll back the computer clock or bypass signature verification. Existing signed documents should be reviewed by the policy-document team rather than re-signed without authorization.</p><p>Search terms: certificate signing expired digital signature.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 3.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "identity",
+      "business_service": {
+        "value": "832b16f362f0cca69bdd437db34cbe6c",
+        "display_value": "Policy Document Signing",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/832b16f362f0cca69bdd437db34cbe6c"
+      },
+      "assignment_group": {
+        "value": "ac9a9a0cb34ea9dbbcf13b89f088ed14",
+        "display_value": "IT identity Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/ac9a9a0cb34ea9dbbcf13b89f088ed14"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "aaec3256b8a3b89bf010d4c88da91f3d",
+      "number": "KB0010036",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Cannot sign in after a password change - employee guide 4",
+      "text": "<h2>Cannot sign in after a password change</h2><p>Confirm the official Claims Workbench address. Close existing browser sessions and open a new session after the password change. Use your corporate account, not a broker account. If the account is locked, contact the service desk through the approved recovery channel. Never share passwords or MFA codes.</p><p>Search terms: login logon password expired account locked sign in.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 4.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "identity",
+      "business_service": {
+        "value": "93bb0a317e4bd84479703bedb8cb669d",
+        "display_value": "Claims Workbench",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/93bb0a317e4bd84479703bedb8cb669d"
+      },
+      "assignment_group": {
+        "value": "ac9a9a0cb34ea9dbbcf13b89f088ed14",
+        "display_value": "IT identity Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/ac9a9a0cb34ea9dbbcf13b89f088ed14"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "578b6b2a05a7a149624cfcea0405ec5b",
+      "number": "KB0010037",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "MFA prompts go to an old phone - employee guide 4",
+      "text": "<h2>MFA prompts go to an old phone</h2><p>If you still have an approved alternate factor, use it to open the corporate security-information page and update your device. If all registered factors are unavailable, request identity verification through the service desk. Do not approve prompts you did not initiate. MFA cannot be bypassed by the assistant.</p><p>Search terms: authenticator lost phone multifactor reset MFA.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 4.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "identity",
+      "business_service": {
+        "value": "d6096cc0275df67a7024965d663e06c7",
+        "display_value": "Corporate Identity",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/d6096cc0275df67a7024965d663e06c7"
+      },
+      "assignment_group": {
+        "value": "ac9a9a0cb34ea9dbbcf13b89f088ed14",
+        "display_value": "IT identity Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/ac9a9a0cb34ea9dbbcf13b89f088ed14"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "e9c91488db614c3ec5bb41c7e849d86c",
+      "number": "KB0010038",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Repeated SSO redirects and login loops - employee guide 4",
+      "text": "<h2>Repeated SSO redirects and login loops</h2><p>Use the published Policy Administration URL. Check that the browser profile is signed in with the corporate identity. Try an approved private browser window to isolate stale session cookies. If that works, clear cookies only for the affected application according to corporate browser guidance. Record the time and error code for escalation.</p><p>Search terms: sign in loop single sign on SSO redirect cookies.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 4.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "browser",
+      "business_service": {
+        "value": "bc21b3482067174e7ec478c4645a60a3",
+        "display_value": "Policy Administration",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/bc21b3482067174e7ec478c4645a60a3"
+      },
+      "assignment_group": {
+        "value": "e225ead244029bb8e71daa81dedbdecc",
+        "display_value": "IT browser Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/e225ead244029bb8e71daa81dedbdecc"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "33b55c4d3d88d93592e6d1637dd09150",
+      "number": "KB0010039",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Old application URL returns HTTP 404 - employee guide 4",
+      "text": "<h2>Old application URL returns HTTP 404</h2><p>The synthetic portal was renamed from /broker-old to /broker in the demo change record. Open the application from the corporate launcher rather than an old bookmark. Request the current approved URL from the service desk if the launcher is unavailable. This fictional URL change is not evidence about a live Azure deployment.</p><p>Search terms: broken link url address page not found 404.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 4.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "network",
+      "business_service": {
+        "value": "7d6bd858a0b6055242fa60f59060e71d",
+        "display_value": "Broker Portal",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/7d6bd858a0b6055242fa60f59060e71d"
+      },
+      "assignment_group": {
+        "value": "bc324d46f8f172367de1fcff74435d68",
+        "display_value": "IT network Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/bc324d46f8f172367de1fcff74435d68"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "eaaaede49d14dc7ff5fa4bece017965d",
+      "number": "KB0010040",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "VPN connects but underwriting application does not load - employee guide 4",
+      "text": "<h2>VPN connects but underwriting application does not load</h2><p>Confirm the approved VPN profile and corporate network connection. Reconnect the VPN once, then retry the approved application URL. Capture whether other intranet applications work and whether the error is DNS resolution or a connection timeout. Do not disable endpoint protection or manually change corporate DNS servers.</p><p>Search terms: VPN DNS split tunnel timeout unable connect.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 4.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "network",
+      "business_service": {
+        "value": "7f8ddb2dc0a45bd8b9b32cbd4644be7b",
+        "display_value": "Underwriting Desktop",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/7f8ddb2dc0a45bd8b9b32cbd4644be7b"
+      },
+      "assignment_group": {
+        "value": "bc324d46f8f172367de1fcff74435d68",
+        "display_value": "IT network Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/bc324d46f8f172367de1fcff74435d68"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "f27499f5b0705072b2ba5fd9196a215d",
+      "number": "KB0010041",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Access denied when opening a claim attachment - employee guide 4",
+      "text": "<h2>Access denied when opening a claim attachment</h2><p>Check whether the claim assignment and document classification allow your team to access the attachment. Request access through the approved document-owner workflow. Do not forward protected claim files to personal email or change the classification to work around access controls. Provide the document identifier, not its contents, when escalating.</p><p>Search terms: permissions forbidden attachment document 403 access denied.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 4.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "access",
+      "business_service": {
+        "value": "4d74c329dfd6fa8a0a78ab7fce3cd222",
+        "display_value": "Document Vault",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/4d74c329dfd6fa8a0a78ab7fce3cd222"
+      },
+      "assignment_group": {
+        "value": "91abc172848bcd20b0b418e02b9ad816",
+        "display_value": "IT access Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/91abc172848bcd20b0b418e02b9ad816"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "06585741d6f9c81a148dd0d37f8c70d2",
+      "number": "KB0010042",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Analytics is slow during month-end processing - employee guide 4",
+      "text": "<h2>Analytics is slow during month-end processing</h2><p>Check the synthetic maintenance notice and known-problem record for overlapping month-end batch processing. Reduce unnecessary concurrent exports and retry outside the published processing window when practical. Capture the report name, start time, and duration. Historical synthetic incidents do not establish the current health of a real application.</p><p>Search terms: slow latency month end batch job timeout.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 4.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "performance",
+      "business_service": {
+        "value": "8753a6901f1a7fbcc504059a0966b5e2",
+        "display_value": "Actuarial Analytics",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/8753a6901f1a7fbcc504059a0966b5e2"
+      },
+      "assignment_group": {
+        "value": "2f13122906ab74ab7465cae612451bfa",
+        "display_value": "IT performance Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/2f13122906ab74ab7465cae612451bfa"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "fc448e7e7fa17a15dfd7600cefc8ce63",
+      "number": "KB0010043",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Report export blocked by data-loss prevention - employee guide 4",
+      "text": "<h2>Report export blocked by data-loss prevention</h2><p>Use the approved reporting workspace and restricted corporate destination. Check the export policy and classification. If a legitimate business export is blocked, ask the data owner and security team to review the policy through the approved process. Never remove protection or upload financial reports to public file-sharing sites.</p><p>Search terms: DLP blocked export spreadsheet confidential data.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 4.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "compliance",
+      "business_service": {
+        "value": "800049a87d4afe3b8fabd2cd1d07172f",
+        "display_value": "Finance Reporting",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/800049a87d4afe3b8fabd2cd1d07172f"
+      },
+      "assignment_group": {
+        "value": "105c66d7bc1e97cd941e3d5eedd594d2",
+        "display_value": "IT compliance Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/105c66d7bc1e97cd941e3d5eedd594d2"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "0706241c6337619520197d67b5a32764",
+      "number": "KB0010044",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Helpdesk URL is unavailable or shows a gateway error - employee guide 4",
+      "text": "<h2>Helpdesk URL is unavailable or shows a gateway error</h2><p>Capture the URL, UTC time, and HTTP error. Check live Azure evidence for the mapped helpdesk frontend and backend before concluding that an outage exists. A Running resource state is not HTTP availability. Compare request errors and measured probe history. The lowest-cost Free App Service demo may cold-start or exhaust daily CPU quota; the assistant cannot restart resources.</p><p>Search terms: uptime unavailable HTTP 502 503 application down.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 4.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "availability",
+      "business_service": {
+        "value": "657b55495d8195ec849a75267316dd33",
+        "display_value": "Employee IT Helpdesk",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/657b55495d8195ec849a75267316dd33"
+      },
+      "assignment_group": {
+        "value": "a571c437ef851a8ea6ce6eb80f7f8219",
+        "display_value": "IT availability Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/a571c437ef851a8ea6ce6eb80f7f8219"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "e18b31958f0bb46f90905c3d57bfab0a",
+      "number": "KB0010045",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Remote employee cannot reach internal applications - employee guide 4",
+      "text": "<h2>Remote employee cannot reach internal applications</h2><p>Check device time and the approved VPN client status. Verify the device certificate using the corporate support procedure. Reconnect once and record the displayed error if the issue persists. Escalate certificate renewal to endpoint support; do not install an untrusted certificate or disable certificate validation.</p><p>Search terms: remote office network VPN certificate connection.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 4.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "network",
+      "business_service": {
+        "value": "14a3a21d783ccda2aeb5115d91907c4b",
+        "display_value": "Corporate VPN",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/14a3a21d783ccda2aeb5115d91907c4b"
+      },
+      "assignment_group": {
+        "value": "bc324d46f8f172367de1fcff74435d68",
+        "display_value": "IT network Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/bc324d46f8f172367de1fcff74435d68"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "a26a9a124e5997686d75784c0b673794",
+      "number": "KB0010046",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Shared printer and secure scan queue are missing - employee guide 4",
+      "text": "<h2>Shared printer and secure scan queue are missing</h2><p>Confirm the office location and approved print service. Reconnect the managed print queue using the corporate software catalog. If the scan destination is missing, ask the document-service owner to confirm your group membership. Never scan policy or claim documents to an unapproved destination.</p><p>Search terms: printer secure scan office queue device.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 4.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "device",
+      "business_service": {
+        "value": "8d3cb3ce7da80b06d72b207078ea72d9",
+        "display_value": "Employee Collaboration",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/8d3cb3ce7da80b06d72b207078ea72d9"
+      },
+      "assignment_group": {
+        "value": "f9bf6884134bde571526b74ba6c02bcf",
+        "display_value": "IT device Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/f9bf6884134bde571526b74ba6c02bcf"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "4ba6157e089c408d08e31235e9d88d3d",
+      "number": "KB0010047",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Digital signing fails because a certificate expired - employee guide 4",
+      "text": "<h2>Digital signing fails because a certificate expired</h2><p>Record the certificate-expiry message and application name. Request renewal through the approved certificate-support workflow. Do not roll back the computer clock or bypass signature verification. Existing signed documents should be reviewed by the policy-document team rather than re-signed without authorization.</p><p>Search terms: certificate signing expired digital signature.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 4.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "identity",
+      "business_service": {
+        "value": "832b16f362f0cca69bdd437db34cbe6c",
+        "display_value": "Policy Document Signing",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/832b16f362f0cca69bdd437db34cbe6c"
+      },
+      "assignment_group": {
+        "value": "ac9a9a0cb34ea9dbbcf13b89f088ed14",
+        "display_value": "IT identity Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/ac9a9a0cb34ea9dbbcf13b89f088ed14"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "97f70b4690fa2b84669c589b64a0c348",
+      "number": "KB0010048",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Cannot sign in after a password change - employee guide 5",
+      "text": "<h2>Cannot sign in after a password change</h2><p>Confirm the official Claims Workbench address. Close existing browser sessions and open a new session after the password change. Use your corporate account, not a broker account. If the account is locked, contact the service desk through the approved recovery channel. Never share passwords or MFA codes.</p><p>Search terms: login logon password expired account locked sign in.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 5.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "identity",
+      "business_service": {
+        "value": "93bb0a317e4bd84479703bedb8cb669d",
+        "display_value": "Claims Workbench",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/93bb0a317e4bd84479703bedb8cb669d"
+      },
+      "assignment_group": {
+        "value": "ac9a9a0cb34ea9dbbcf13b89f088ed14",
+        "display_value": "IT identity Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/ac9a9a0cb34ea9dbbcf13b89f088ed14"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "c29671b08aa0f0f11494202d0c90b47d",
+      "number": "KB0010049",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "MFA prompts go to an old phone - employee guide 5",
+      "text": "<h2>MFA prompts go to an old phone</h2><p>If you still have an approved alternate factor, use it to open the corporate security-information page and update your device. If all registered factors are unavailable, request identity verification through the service desk. Do not approve prompts you did not initiate. MFA cannot be bypassed by the assistant.</p><p>Search terms: authenticator lost phone multifactor reset MFA.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 5.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "identity",
+      "business_service": {
+        "value": "d6096cc0275df67a7024965d663e06c7",
+        "display_value": "Corporate Identity",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/d6096cc0275df67a7024965d663e06c7"
+      },
+      "assignment_group": {
+        "value": "ac9a9a0cb34ea9dbbcf13b89f088ed14",
+        "display_value": "IT identity Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/ac9a9a0cb34ea9dbbcf13b89f088ed14"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "d1ee1767406577041d07ee32284bd1fa",
+      "number": "KB0010050",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Repeated SSO redirects and login loops - employee guide 5",
+      "text": "<h2>Repeated SSO redirects and login loops</h2><p>Use the published Policy Administration URL. Check that the browser profile is signed in with the corporate identity. Try an approved private browser window to isolate stale session cookies. If that works, clear cookies only for the affected application according to corporate browser guidance. Record the time and error code for escalation.</p><p>Search terms: sign in loop single sign on SSO redirect cookies.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 5.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "browser",
+      "business_service": {
+        "value": "bc21b3482067174e7ec478c4645a60a3",
+        "display_value": "Policy Administration",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/bc21b3482067174e7ec478c4645a60a3"
+      },
+      "assignment_group": {
+        "value": "e225ead244029bb8e71daa81dedbdecc",
+        "display_value": "IT browser Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/e225ead244029bb8e71daa81dedbdecc"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "7e86088030d1fd9a1f40cdb55682954c",
+      "number": "KB0010051",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Old application URL returns HTTP 404 - employee guide 5",
+      "text": "<h2>Old application URL returns HTTP 404</h2><p>The synthetic portal was renamed from /broker-old to /broker in the demo change record. Open the application from the corporate launcher rather than an old bookmark. Request the current approved URL from the service desk if the launcher is unavailable. This fictional URL change is not evidence about a live Azure deployment.</p><p>Search terms: broken link url address page not found 404.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 5.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "network",
+      "business_service": {
+        "value": "7d6bd858a0b6055242fa60f59060e71d",
+        "display_value": "Broker Portal",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/7d6bd858a0b6055242fa60f59060e71d"
+      },
+      "assignment_group": {
+        "value": "bc324d46f8f172367de1fcff74435d68",
+        "display_value": "IT network Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/bc324d46f8f172367de1fcff74435d68"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "a62e1229cc559ef4fd64131db33e8691",
+      "number": "KB0010052",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "VPN connects but underwriting application does not load - employee guide 5",
+      "text": "<h2>VPN connects but underwriting application does not load</h2><p>Confirm the approved VPN profile and corporate network connection. Reconnect the VPN once, then retry the approved application URL. Capture whether other intranet applications work and whether the error is DNS resolution or a connection timeout. Do not disable endpoint protection or manually change corporate DNS servers.</p><p>Search terms: VPN DNS split tunnel timeout unable connect.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 5.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "network",
+      "business_service": {
+        "value": "7f8ddb2dc0a45bd8b9b32cbd4644be7b",
+        "display_value": "Underwriting Desktop",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/7f8ddb2dc0a45bd8b9b32cbd4644be7b"
+      },
+      "assignment_group": {
+        "value": "bc324d46f8f172367de1fcff74435d68",
+        "display_value": "IT network Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/bc324d46f8f172367de1fcff74435d68"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "9858b2f607fea0e5567ba8f0acc6b129",
+      "number": "KB0010053",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Access denied when opening a claim attachment - employee guide 5",
+      "text": "<h2>Access denied when opening a claim attachment</h2><p>Check whether the claim assignment and document classification allow your team to access the attachment. Request access through the approved document-owner workflow. Do not forward protected claim files to personal email or change the classification to work around access controls. Provide the document identifier, not its contents, when escalating.</p><p>Search terms: permissions forbidden attachment document 403 access denied.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 5.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "access",
+      "business_service": {
+        "value": "4d74c329dfd6fa8a0a78ab7fce3cd222",
+        "display_value": "Document Vault",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/4d74c329dfd6fa8a0a78ab7fce3cd222"
+      },
+      "assignment_group": {
+        "value": "91abc172848bcd20b0b418e02b9ad816",
+        "display_value": "IT access Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/91abc172848bcd20b0b418e02b9ad816"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "cf1e32010d53608f53d2bc4561ecf98f",
+      "number": "KB0010054",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Analytics is slow during month-end processing - employee guide 5",
+      "text": "<h2>Analytics is slow during month-end processing</h2><p>Check the synthetic maintenance notice and known-problem record for overlapping month-end batch processing. Reduce unnecessary concurrent exports and retry outside the published processing window when practical. Capture the report name, start time, and duration. Historical synthetic incidents do not establish the current health of a real application.</p><p>Search terms: slow latency month end batch job timeout.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 5.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "performance",
+      "business_service": {
+        "value": "8753a6901f1a7fbcc504059a0966b5e2",
+        "display_value": "Actuarial Analytics",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/8753a6901f1a7fbcc504059a0966b5e2"
+      },
+      "assignment_group": {
+        "value": "2f13122906ab74ab7465cae612451bfa",
+        "display_value": "IT performance Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/2f13122906ab74ab7465cae612451bfa"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "5a885c32ae53f97377913fa4c9e22afa",
+      "number": "KB0010055",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Report export blocked by data-loss prevention - employee guide 5",
+      "text": "<h2>Report export blocked by data-loss prevention</h2><p>Use the approved reporting workspace and restricted corporate destination. Check the export policy and classification. If a legitimate business export is blocked, ask the data owner and security team to review the policy through the approved process. Never remove protection or upload financial reports to public file-sharing sites.</p><p>Search terms: DLP blocked export spreadsheet confidential data.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 5.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "compliance",
+      "business_service": {
+        "value": "800049a87d4afe3b8fabd2cd1d07172f",
+        "display_value": "Finance Reporting",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/800049a87d4afe3b8fabd2cd1d07172f"
+      },
+      "assignment_group": {
+        "value": "105c66d7bc1e97cd941e3d5eedd594d2",
+        "display_value": "IT compliance Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/105c66d7bc1e97cd941e3d5eedd594d2"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "dfe9ccc2513a0f8ed87587508144463e",
+      "number": "KB0010056",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Helpdesk URL is unavailable or shows a gateway error - employee guide 5",
+      "text": "<h2>Helpdesk URL is unavailable or shows a gateway error</h2><p>Capture the URL, UTC time, and HTTP error. Check live Azure evidence for the mapped helpdesk frontend and backend before concluding that an outage exists. A Running resource state is not HTTP availability. Compare request errors and measured probe history. The lowest-cost Free App Service demo may cold-start or exhaust daily CPU quota; the assistant cannot restart resources.</p><p>Search terms: uptime unavailable HTTP 502 503 application down.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 5.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "availability",
+      "business_service": {
+        "value": "657b55495d8195ec849a75267316dd33",
+        "display_value": "Employee IT Helpdesk",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/657b55495d8195ec849a75267316dd33"
+      },
+      "assignment_group": {
+        "value": "a571c437ef851a8ea6ce6eb80f7f8219",
+        "display_value": "IT availability Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/a571c437ef851a8ea6ce6eb80f7f8219"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "1396bb88e5ecbcbf81592b3bc478216c",
+      "number": "KB0010057",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Remote employee cannot reach internal applications - employee guide 5",
+      "text": "<h2>Remote employee cannot reach internal applications</h2><p>Check device time and the approved VPN client status. Verify the device certificate using the corporate support procedure. Reconnect once and record the displayed error if the issue persists. Escalate certificate renewal to endpoint support; do not install an untrusted certificate or disable certificate validation.</p><p>Search terms: remote office network VPN certificate connection.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 5.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "network",
+      "business_service": {
+        "value": "14a3a21d783ccda2aeb5115d91907c4b",
+        "display_value": "Corporate VPN",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/14a3a21d783ccda2aeb5115d91907c4b"
+      },
+      "assignment_group": {
+        "value": "bc324d46f8f172367de1fcff74435d68",
+        "display_value": "IT network Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/bc324d46f8f172367de1fcff74435d68"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "cfb06b1f8906c7fb994946a7e1b9dc3d",
+      "number": "KB0010058",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Shared printer and secure scan queue are missing - employee guide 5",
+      "text": "<h2>Shared printer and secure scan queue are missing</h2><p>Confirm the office location and approved print service. Reconnect the managed print queue using the corporate software catalog. If the scan destination is missing, ask the document-service owner to confirm your group membership. Never scan policy or claim documents to an unapproved destination.</p><p>Search terms: printer secure scan office queue device.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 5.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "device",
+      "business_service": {
+        "value": "8d3cb3ce7da80b06d72b207078ea72d9",
+        "display_value": "Employee Collaboration",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/8d3cb3ce7da80b06d72b207078ea72d9"
+      },
+      "assignment_group": {
+        "value": "f9bf6884134bde571526b74ba6c02bcf",
+        "display_value": "IT device Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/f9bf6884134bde571526b74ba6c02bcf"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    },
+    {
+      "sys_id": "a2f452f43af77f84059c602a810b8ecc",
+      "number": "KB0010059",
+      "sys_created_on": "2026-09-01 08:00:00",
+      "sys_updated_on": "2026-09-02 09:00:00",
+      "sys_mod_count": "0",
+      "short_description": "Digital signing fails because a certificate expired - employee guide 5",
+      "text": "<h2>Digital signing fails because a certificate expired</h2><p>Record the certificate-expiry message and application name. Request renewal through the approved certificate-support workflow. Do not roll back the computer clock or bypass signature verification. Existing signed documents should be reviewed by the policy-document team rather than re-signed without authorization.</p><p>Search terms: certificate signing expired digital signature.</p><p>Applies to managed corporate devices. If unresolved, provide application name, UTC time, and error code to the service desk. Synthetic insurer training scenario 5.</p>",
+      "workflow_state": "published",
+      "audience": "employee",
+      "active": "true",
+      "category": "identity",
+      "business_service": {
+        "value": "832b16f362f0cca69bdd437db34cbe6c",
+        "display_value": "Policy Document Signing",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/cmdb_ci_business_app/832b16f362f0cca69bdd437db34cbe6c"
+      },
+      "assignment_group": {
+        "value": "ac9a9a0cb34ea9dbbcf13b89f088ed14",
+        "display_value": "IT identity Support",
+        "link": "https://fictional-insurer.example.invalid/api/now/table/sys_user_group/ac9a9a0cb34ea9dbbcf13b89f088ed14"
+      },
+      "work_notes": "Restricted synthetic internal note: excluded from employee indexing."
+    }
+  ]
+}

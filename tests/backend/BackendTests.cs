@@ -66,6 +66,20 @@ public sealed class ApiTests
         var client = factory.CreateClient();
         Assert.Equal("{\"status\":\"alive\"}", await client.GetStringAsync("/health/live"));
         Assert.Equal(HttpStatusCode.Unauthorized, (await client.GetAsync("/api/examples")).StatusCode);
+        Assert.Equal(HttpStatusCode.Unauthorized, (await client.GetAsync("/api/models")).StatusCode);
+    }
+    [Fact]
+    public async Task ModelCatalogIsScopeProtectedAndInvalidSelectionDoesNotAllocateConversations()
+    {
+        await using var factory = new ApiFactory();
+        Assert.Equal(HttpStatusCode.Forbidden, (await factory.Employee(ApiFactory.Token("Other.Scope")).GetAsync("/api/models")).StatusCode);
+        var employee = factory.Employee(ApiFactory.Token());
+        var catalog = await employee.GetFromJsonAsync<ModelCatalogResponse>("/api/models");
+        Assert.NotNull(catalog);
+        for (var i = 0; i < 4; i++)
+            Assert.Equal(HttpStatusCode.BadRequest, (await employee.PostAsJsonAsync("/api/chat",
+                new ChatRequest("Question", ModelId: "unknown"))).StatusCode);
+        Assert.Equal(HttpStatusCode.OK, (await employee.PostAsJsonAsync("/api/chat", new ChatRequest("Question"))).StatusCode);
     }
     [Theory]
     [InlineData("Other.Scope", null, null, false, HttpStatusCode.Forbidden)]
@@ -283,7 +297,8 @@ public sealed class PolicyTests
     [Fact]
     public async Task ExplicitOfflineModeNeverInvokesRealDependencies()
     {
-        var agent = new HelpdeskAgent(Config(), new ForbiddenKnowledge(), new ForbiddenAzure());
+        var agent = new HelpdeskAgent(Config(), new ForbiddenKnowledge(), new ForbiddenAzure(),
+            ApplicationHealthSkillTests.Skill(new ApplicationHealthSkillTests.FakeMcp()), new HelpdeskModelClientFactory());
         var result = await agent.RunAsync(new Conversation("id", "owner", DateTimeOffset.UtcNow), "question", true, default);
         Assert.Empty(result.AzureEvidence); Assert.Empty(result.KnowledgeSources);
         Assert.Contains("offline", result.Answer);

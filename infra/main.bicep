@@ -17,6 +17,10 @@ param modelSku string
 param modelCapacity int = 50
 param modelLocation string = location
 param modelDeploymentName string = 'helpdesk-mini'
+param lunaModelEnabled bool = true
+@minValue(1)
+@maxValue(333)
+param lunaModelCapacity int = 10
 
 resource rg 'Microsoft.Resources/resourceGroups@2024-03-01' = {
   name: resourceGroupName
@@ -43,6 +47,8 @@ module app 'resources.bicep' = {
     modelCapacity: modelCapacity
     modelLocation: modelLocation
     modelDeploymentName: modelDeploymentName
+    lunaModelEnabled: lunaModelEnabled
+    lunaModelCapacity: lunaModelCapacity
   }
 }
 
@@ -55,6 +61,24 @@ resource mcpReader 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   }
 }
 
-output resources object = app.outputs.resources
+module healthModel 'health-model.bicep' = {
+  name: '${namePrefix}-health-model'
+  params: {
+    location: location
+    namePrefix: namePrefix
+    resourceGroupName: rg.name
+    ownershipId: ownershipId
+    backendResourceId: app.outputs.resources.backendId
+    frontendResourceId: app.outputs.resources.frontendId
+    appServicePlanResourceId: app.outputs.resources.appServicePlanId
+  }
+}
+
+output resources object = union(app.outputs.resources, {
+  healthModelName: healthModel.outputs.healthModelName
+  healthModelId: healthModel.outputs.healthModelId
+  healthModelPrincipalId: healthModel.outputs.principalId
+})
 output readerRoleAssignmentId string = mcpReader.id
+output healthModelReaderRoleAssignmentId string = healthModel.outputs.readerRoleAssignmentId
 output resourceGroupId string = rg.id

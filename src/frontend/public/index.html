@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="var(--cp-bg)" />
-  <meta name="description" content="NN-inspired employee IT helpdesk demo: practical guidance, synthetic insurance knowledge, and read-only Azure evidence." />
+  <meta name="description" content="Nationale-Nederlanden employee IT helpdesk demo: practical guidance, synthetic insurance knowledge, and read-only Azure evidence. Not an official NN service." />
   <title>NN · Employee IT Helpdesk Demo</title>
   <script>
     (() => {
@@ -22,64 +22,67 @@
     })();
   </script>
   <style>
+    /* nn.nl palette: warm sand bands, dark-grey actions, NN orange for headings and icons. */
     :root {
       color-scheme: light;
-      --cp-bg: #f4f1ee;
-      --cp-bg-elevated: #faf8f5;
+      --cp-bg: #f3efed;
+      --cp-bg-elevated: #faf8f7;
       --cp-surface: #ffffff;
-      --cp-surface-soft: #f5f5f5;
-      --cp-border: #dedede;
-      --cp-border-strong: #919191;
-      --cp-text: #242424;
+      --cp-surface-soft: #f7f5f3;
+      --cp-border: #e6dfda;
+      --cp-border-strong: #8d8d8d;
+      --cp-text: #404040;
+      --cp-text-strong: #1a1a1a;
       --cp-text-muted: #5c5c5c;
       --cp-text-soft: #6f6f6f;
-      --cp-accent: #c94b00;
-      --cp-accent-hover: #a53e00;
+      --cp-accent: #404040;
+      --cp-accent-hover: #1a1a1a;
       --cp-accent-text: #b84400;
-      --cp-brand: #ee6c00;
-      --cp-accent-soft: rgba(238, 108, 0, 0.10);
+      --cp-brand: #ea650d;
+      --cp-accent-soft: rgba(234, 101, 13, 0.08);
       --cp-accent-fg: #ffffff;
       --cp-success: #16a34a;
       --cp-danger: #dc2626;
       --cp-warning: #f59e0b;
       --cp-link: #b84400;
-      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+      --cp-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
       --cp-overlay: rgba(255, 255, 255, 0.8);
       --cp-panel: rgba(255, 255, 255, 0.86);
       --cp-panel-strong: rgba(255, 255, 255, 0.96);
       --cp-sheen: rgba(255, 255, 255, 0.55);
-      --cp-highlight: rgba(238, 108, 0, 0.16);
+      --cp-highlight: rgba(234, 101, 13, 0.18);
     }
     html[data-theme="dark"] {
       color-scheme: dark;
-      --cp-bg: #3d3b3a;
+      --cp-bg: #2b2a29;
       --cp-bg-elevated: #343231;
-      --cp-surface: #292929;
-      --cp-surface-soft: #2e2e2e;
+      --cp-surface: #1f1f1f;
+      --cp-surface-soft: #262626;
       --cp-border: #474747;
-      --cp-border-strong: #5f5f5f;
-      --cp-text: #dedede;
-      --cp-text-muted: #919191;
+      --cp-border-strong: #6b6b6b;
+      --cp-text: #e6e6e6;
+      --cp-text-strong: #ffffff;
+      --cp-text-muted: #a6a6a6;
       --cp-text-soft: #b0b0b0;
-      --cp-accent: #ffab70;
-      --cp-accent-hover: #ffc399;
+      --cp-accent: #f3efed;
+      --cp-accent-hover: #ffffff;
       --cp-accent-text: #ffb684;
-      --cp-brand: #ffab70;
-      --cp-accent-soft: rgba(255, 171, 112, 0.14);
+      --cp-brand: #f28c38;
+      --cp-accent-soft: rgba(242, 140, 56, 0.14);
       --cp-accent-fg: #1a1a1a;
       --cp-success: #4ade80;
       --cp-danger: #f87171;
       --cp-warning: #fbbf24;
       --cp-link: #ffb684;
-      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      --cp-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
       --cp-overlay: rgba(41, 41, 41, 0.88);
       --cp-panel: rgba(41, 41, 41, 0.72);
       --cp-panel-strong: rgba(41, 41, 41, 0.96);
       --cp-sheen: rgba(255, 255, 255, 0.04);
-      --cp-highlight: rgba(255, 171, 112, 0.18);
+      --cp-highlight: rgba(242, 140, 56, 0.2);
     }
-    html, body, #root { min-height: 100%; margin: 0; background: var(--cp-bg); color: var(--cp-text); }
-    body { font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; }
+    html, body, #root { min-height: 100%; margin: 0; background: var(--cp-surface); color: var(--cp-text); }
+    body { font-family: Helvetica, Arial, sans-serif; }
     * { box-sizing: border-box; }
     :focus-visible { outline: 3px solid var(--cp-link); outline-offset: 3px; }
     textarea, input { caret-color: var(--cp-accent); }

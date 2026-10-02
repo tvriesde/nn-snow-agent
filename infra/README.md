@@ -9,11 +9,77 @@ explicitly approved execution of `deploy.ps1`.
 
 ## Resources and security
 
+`additional-model.bicep` deploys only GPT-6 luna `2026-09-22` as
+`helpdesk-luna` on an existing Azure OpenAI account, EU `DataZoneStandard`,
+capacity 10, with automatic upgrades disabled. It does not change the existing
+GPT-5 nano deployment, identities, Search or indexer. The full template also
+includes this module (`lunaModelEnabled`, default true; `lunaModelCapacity`,
+default 10) and configures both models in the backend's allowlisted catalog,
+with GPT-5 nano remaining the default.
+The luna catalog entry sets `Api=responses` to support tools with low reasoning;
+nano retains Chat Completions. Responses explicitly disables provider storage.
+
+The catalog's pricing uses official Azure Retail API USD Data Zone rates checked
+2026-10-02. Nano input/cached input/output rates are 0.055/0.0055/0.44 per million.
+Luna short-context rates are 0.12/0.012/0.60, plus 0.15 for cache writes.
+Estimates require complete per-round usage and cached-input counts. A conservative
+20,000-input-token per-call applicability bound is an application estimate guard,
+not a claimed provider tier threshold. Luna estimates remain unavailable because
+the verified SDK usage contract has no cache-write billing count. Other Azure
+costs, tax and negotiated discounts are excluded; these prices are not a budget.
+
 `main.bicep` is subscription-scoped: it creates a tagged resource group, calls
 the resource-group module, and grants subscription Reader to a dedicated Azure
 MCP identity. A workspace-scoped Log Analytics Reader grant permits querying
 this demo's workspace; the identity has no write grants. Backend and frontend
 share a Linux F1 plan. No paid hosting fallback is implemented.
+
+The independently deployable subscription-scoped `health-model.bicep` module
+targets an existing resource group and is also called by `main.bicep`.
+Its resource-group child module, `modules/health-model-resources.bicep`, creates
+a `Microsoft.CloudHealth/healthmodels@2026-09-01-preview` resource named
+`<namePrefix>-health` (default `snowdemo-health`), following the existing
+`<namePrefix>-<purpose>` naming convention. It carries the same application and
+ownership tags, uses a system-assigned identity, and creates the `systemassigned`
+ManagedIdentity authentication setting. The subscription module grants only
+Reader (`acdd72a7-3385-48ef-bd42-f606fba81ae7`) to that identity at subscription
+scope, with a deterministic role assignment name tied to the resource and ownership ID.
+The module outputs its name, resource ID, principal ID, authentication setting ID
+and Reader assignment ID. Full deployment records the health model and its grant
+in the ownership manifest.
+
+The module preserves the exported health-model content using the original entity,
+signal and relationship IDs, canvas positions, impact and metric evaluation rules.
+Entities and relationships use the export's `2026-05-01-preview` API; the model
+and authentication retain their existing `2026-09-01-preview` API.
+
+- Root model -> frontend -> backend, plus frontend/backend -> shared F1 plan
+  `IsHostedWithin` relationships.
+- Backend/frontend HTTP 5xx: Maximum over `PT5M`, degraded and unhealthy when
+  greater than 0, refreshed every `PT1M` (matching the export exactly).
+- Plan CPU: Average over `PT5M`, degraded above 80%, unhealthy above 95%.
+- Plan memory: Average over `PT1M`, degraded above 75%, unhealthy above 90%.
+  Both plan signals refresh every `PT1M`.
+
+`backendResourceId`, `frontendResourceId` and `appServicePlanResourceId` are
+parameterized, with standalone defaults derived from the target subscription,
+resource group and existing resource naming convention. The main deployment
+passes the actual resource IDs from the app module, ensuring those resources are
+created before model content is deployed. Display names are derived from these
+IDs; no subscription, resource suffix or ownership value is hardcoded.
+
+Redeployment reapplies this version-controlled content to the same IDs.
+Later portal edits must also be captured in the module to avoid overwriting
+those managed properties. Resources outside the supplied export are not managed
+or deleted by this incremental deployment. Backend health-tool integration
+remains a separate step; metric health depends on live data being available.
+CloudHealth provider registration and regional availability must be checked
+before deployment; the deployment operator also needs subscription-level role
+assignment permission.
+
+Run `pwsh -File infra\tests\health-model-contract.ps1` to compile both deployment
+entry points and check the model, authentication, subscription RBAC, output wiring
+and cleanup safety using local mocks. The test never deploys or deletes Azure resources.
 
 The indexer uses **system-assigned identity**, Flex FC1, the discovered
 `dotnet-isolated` .NET 10 runtime, 512 MB and no always-ready instances.
@@ -254,10 +320,11 @@ Retain it across reruns and after partial failures. A group without this manifes
 is not adopted. Group tags and every top-level resource must match ownership
 before reuse/deletion; unrelated resources prevent the operation.
 
-Deletion removes the journaled subscription Reader assignment **before** the
+Deletion removes both journaled subscription Reader assignments **before** the
 group, cleans temporary grants, and deletes only the verified owned group.
 Partial-deployment cleanup can discover Reader assignments on the tagged MCP
-identity. It never purges Key Vault. Entra deletion requires the separate
+identity and the owned health model's system identity, including when an older
+manifest has no health-model fields. It never purges Key Vault. Entra deletion requires the separate
 `-DeleteOwnedEntraApplications` opt-in **and**
 `-EntraDeletionConfirmation <ownershipId>`, plus a separate ShouldProcess
 confirmation for each journaled registration. Existing registrations never enter

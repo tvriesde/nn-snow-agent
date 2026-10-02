@@ -10,6 +10,10 @@ public sealed class AzureToolPolicy
     public const string LogsTool = "monitor_workspace_log_query";
     public const string ActivityTool = "monitor_activitylog_list";
     public const string HealthTool = "resourcehealth_availability-status_get";
+    public const string HealthModelsListTool = "monitor_healthmodels_list";
+    public const string HealthModelsGetTool = "monitor_healthmodels_get";
+    public static readonly string[] AllowedTools =
+        [MetricsTool, LogsTool, ActivityTool, HealthTool, HealthModelsListTool, HealthModelsGetTool];
     private readonly IConfiguration config;
     public AzureToolPolicy(IConfiguration config) => this.config = config;
     public ApplicationResource? Resolve(string alias) => config.GetSection("Azure:ApplicationResources")
@@ -78,7 +82,12 @@ public interface IAzureInvestigator
 {
     Task<AzureEvidence> InvestigateAsync(string alias, string operation, CancellationToken cancellationToken);
 }
-public sealed class AzureMcpService(IConfiguration config, AzureToolPolicy policy) : IAzureInvestigator, IAsyncDisposable
+public interface IHealthModelMcp
+{
+    Task<JsonElement> ReadAsync(string? resourceGroup, string? modelName, CancellationToken cancellationToken);
+}
+public sealed class AzureMcpQueryException(string message) : InvalidOperationException(message);
+public sealed class AzureMcpService(IConfiguration config, AzureToolPolicy policy) : IAzureInvestigator, IHealthModelMcp, IAsyncDisposable
 {
     private readonly SemaphoreSlim gate = new(1, 1);
     private McpClient? client;
@@ -100,6 +109,46 @@ public sealed class AzureMcpService(IConfiguration config, AzureToolPolicy polic
     public async Task<AzureEvidence> InvestigateAsync(string alias, string operation, CancellationToken cancellationToken)
     {
         var request = policy.Build(alias, operation);
+        var results = await ExecuteAsync(request.Tool, request.Arguments, cancellationToken);
+        if (operation == "availability" && !HasExecutedProbeSamples(results))
+            throw new InvalidOperationException("No executed availability samples were returned. Uptime is unknown, not 100 percent.");
+        var summary = operation switch
+        {
+            "metrics" => SanitizeMetricsEvidence(results),
+            "activity" or "health" => SanitizeOperationalEvidence(results, request.ResourceId, operation),
+            _ => results.GetRawText()
+        };
+        var label = operation switch
+        {
+            "metrics" => "Actual Azure Monitor counts summed from returned samples; missing buckets are not zero (not HTTP uptime)",
+            "availability" => "Actual executed probe samples; missing samples and partial coverage are not proof of uptime",
+            "activity" => "Actual resource-scoped recent activity (maximum 10 events); temporal proximity does not establish causation",
+            _ => "Actual Azure Resource Health status (not an HTTP availability test or application health model)"
+        };
+        return new(request.ResourceId, DateTimeOffset.UtcNow.ToString("O"),
+            operation == "health" ? "Current Resource Health observation" : "Last 24 hours", $"{label}: {summary}");
+    }
+    public Task<JsonElement> ReadAsync(string? resourceGroup, string? modelName, CancellationToken cancellationToken)
+    {
+        var subscription = config["Azure:SubscriptionId"];
+        if (!Guid.TryParse(subscription, out _))
+            throw new InvalidOperationException("The authorized health model subscription is not configured.");
+        if (resourceGroup is not null && !System.Text.RegularExpressions.Regex.IsMatch(resourceGroup, @"^[a-zA-Z0-9_.()-]{1,90}$") ||
+            modelName is not null && (!System.Text.RegularExpressions.Regex.IsMatch(modelName, @"^[a-zA-Z0-9_-]{1,100}$") || resourceGroup is null))
+            throw new InvalidOperationException("A valid health model name and resource group are required.");
+        var arguments = new Dictionary<string, object?>
+        {
+            ["subscription"] = subscription, ["tenant"] = config["Azure:TenantId"]
+        };
+        if (resourceGroup is not null) arguments["resource-group"] = resourceGroup;
+        if (modelName is not null) arguments["health-model"] = modelName;
+        return ExecuteAsync(modelName is null ? AzureToolPolicy.HealthModelsListTool : AzureToolPolicy.HealthModelsGetTool,
+            arguments, cancellationToken);
+    }
+    private async Task<JsonElement> ExecuteAsync(string toolName, Dictionary<string, object?> arguments, CancellationToken cancellationToken)
+    {
+        if (!AzureToolPolicy.AllowedTools.Contains(toolName, StringComparer.Ordinal))
+            throw new InvalidOperationException("Forbidden MCP command.");
         if (!config.GetValue<bool>("AzureMcp:Enabled")) throw new InvalidOperationException("Live Azure investigation is disabled.");
         await gate.WaitAsync(cancellationToken);
         try
@@ -119,8 +168,7 @@ public sealed class AzureMcpService(IConfiguration config, AzureToolPolicy polic
                     Name = "Pinned read-only Azure MCP",
                     Command = executable,
                     Arguments = ["server", "start", "--transport", "stdio", "--read-only", "--mode", "all",
-                        "--tool", AzureToolPolicy.MetricsTool, "--tool", AzureToolPolicy.LogsTool,
-                        "--tool", AzureToolPolicy.ActivityTool, "--tool", AzureToolPolicy.HealthTool,
+                        .. AzureToolPolicy.AllowedTools.SelectMany(t => new[] { "--tool", t }),
                         "--outgoing-auth-strategy", "UseHostingEnvironmentIdentity", "--disable-proxy-tools"],
                     InheritEnvironmentVariables = false,
                     EnvironmentVariables = ChildEnvironment(identity, config["AzureMcp:CachePath"]),
@@ -129,37 +177,33 @@ public sealed class AzureMcpService(IConfiguration config, AzureToolPolicy polic
                 client = await McpClient.CreateAsync(transport, cancellationToken: timeout.Token);
                 tools = await client.ListToolsAsync(cancellationToken: timeout.Token);
                 foreach (var tool in tools)
-                    if (tool.Name is not (AzureToolPolicy.MetricsTool or AzureToolPolicy.LogsTool or AzureToolPolicy.ActivityTool or AzureToolPolicy.HealthTool))
+                    if (!AzureToolPolicy.AllowedTools.Contains(tool.Name, StringComparer.Ordinal))
                         throw new InvalidOperationException("Unexpected MCP tool contract.");
             }
-            var selected = tools!.SingleOrDefault(t => t.Name == request.Tool) ??
-                throw new InvalidOperationException("Pinned MCP tool is unavailable.");
-            ValidateSchema(selected.JsonSchema, request.Arguments);
-            if (!AzureToolPolicy.ValidateDispatch(request.Tool, request.Tool, request.Arguments, request.Tool, request.Arguments))
+            if (toolName is AzureToolPolicy.HealthModelsListTool or AzureToolPolicy.HealthModelsGetTool)
+                foreach (var required in new[] { AzureToolPolicy.HealthModelsListTool, AzureToolPolicy.HealthModelsGetTool })
+                    if (!tools!.Any(t => t.Name == required))
+                        throw new AzureMcpQueryException($"Azure MCP command {required} is unavailable; upgrade the packaged server.");
+            var selected = tools!.SingleOrDefault(t => t.Name == toolName) ??
+                throw new AzureMcpQueryException($"Azure MCP command {toolName} is unavailable.");
+            ValidateSchema(selected.JsonSchema, arguments);
+            if (!AzureToolPolicy.ValidateDispatch(toolName, toolName, arguments, toolName, arguments))
                 throw new InvalidOperationException("Forbidden MCP command.");
-            var result = await client.CallToolAsync(request.Tool, request.Arguments, cancellationToken: timeout.Token);
-            if (result.IsError == true) throw new InvalidOperationException("Azure MCP could not complete the read-only query.");
+            var result = await client.CallToolAsync(toolName, arguments, cancellationToken: timeout.Token);
             var texts = result.Content.OfType<TextContentBlock>().Select(t => t.Text);
             var summary = string.Join("\n", texts);
             if (summary.Length > 16000) throw new InvalidOperationException("Azure MCP result exceeded its safe bound.");
             using var json = JsonDocument.Parse(summary);
-            if (!json.RootElement.TryGetProperty("status", out var status) ||
-                !status.TryGetInt32(out var code) || code != 200 ||
+            if (!json.RootElement.TryGetProperty("status", out var status) || !status.TryGetInt32(out var code))
+                throw new AzureMcpQueryException($"Azure MCP {toolName} returned no valid operation status.");
+            if (code == 404)
+                throw new AzureMcpQueryException($"Azure MCP {toolName}: the requested health model/resource was not found in the requested resource group (404).");
+            if (code is 401 or 403)
+                throw new AzureMcpQueryException($"Azure MCP {toolName}: authentication or Reader access was denied ({code}).");
+            if (result.IsError == true || code != 200 ||
                 !json.RootElement.TryGetProperty("results", out var results) || results.ValueKind == JsonValueKind.Null)
-                throw new InvalidOperationException("Azure MCP returned an unsuccessful Azure operation.");
-            if (operation == "availability" && !HasExecutedProbeSamples(results))
-                throw new InvalidOperationException("No executed availability samples were returned. Uptime is unknown, not 100 percent.");
-            if (operation == "metrics") summary = SanitizeMetricsEvidence(results);
-            if (operation is "activity" or "health") summary = SanitizeOperationalEvidence(results, request.ResourceId, operation);
-            var label = operation switch
-            {
-                "metrics" => "Actual Azure Monitor counts summed from returned samples; missing buckets are not zero (not HTTP uptime)",
-                "availability" => "Actual executed probe samples; missing samples and partial coverage are not proof of uptime",
-                "activity" => "Actual resource-scoped recent activity (maximum 10 events); temporal proximity does not establish causation",
-                _ => "Actual Azure Resource Health status (not an HTTP availability test or subscription-wide outage diagnosis)"
-            };
-            return new(request.ResourceId, DateTimeOffset.UtcNow.ToString("O"),
-                operation == "health" ? "Current Resource Health observation" : "Last 24 hours", $"{label}: {summary}");
+                throw new AzureMcpQueryException($"Azure MCP {toolName} returned an unsuccessful operation ({code}).");
+            return results.Clone();
         }
         catch
         {

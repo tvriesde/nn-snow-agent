@@ -49,7 +49,13 @@ test('architecture reference explains real evidence, bounded model configuration
     'Strict JSON', 'missing buckets', 'uptime is unknown', 'not a hard OS security boundary']) {
     assert.ok(text.includes(requirement), `Missing architecture detail: ${requirement}`);
   }
-  assert.equal(agentTools.filter(tool => 'command' in tool).length, 4);
+  assert.equal(agentTools.filter(tool => 'command' in tool).length, 5);
+  const health = agentTools.find(tool => tool.name === 'GetApplicationHealth');
+  assert.ok(health && 'command' in health);
+  assert.equal(health.command, 'monitor_healthmodels_list + monitor_healthmodels_get');
+  for (const requirement of ['SKILL.md', 'azure-health-model-state', '20-model', 'healthState', 'Provisioning']) {
+    assert.ok(text.includes(requirement), `Missing health skill detail: ${requirement}`);
+  }
   assert.deepEqual(applicationAliases, ['Employee IT Helpdesk backend', 'Employee IT Helpdesk frontend']);
 });
 

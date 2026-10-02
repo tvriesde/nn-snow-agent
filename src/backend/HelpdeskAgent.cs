@@ -9,14 +9,44 @@ using ChatMessage = Microsoft.Extensions.AI.ChatMessage;
 
 namespace Helpdesk.Backend;
 
-public sealed class HelpdeskAgent(IConfiguration config, IKnowledgeService knowledge, IAzureInvestigator azure)
+public sealed class HelpdeskAgent(IConfiguration config, IKnowledgeService knowledge, IAzureInvestigator azure,
+    ApplicationHealthSkill healthSkill, IHelpdeskModelClientFactory models, ModelCatalog? modelCatalog = null)
 {
-    public async Task<ChatResponse> RunAsync(Conversation conversation, string message, bool offline, CancellationToken cancellationToken)
+    public async Task<ChatResponse> RunAsync(Conversation conversation, string message, bool offline, CancellationToken cancellationToken,
+        string? modelId = null)
+    {
+        if (!(modelCatalog ?? new ModelCatalog(config)).TryResolve(modelId, out var selected))
+            throw new ArgumentException("The requested model is not available.", nameof(modelId));
+        var processing = new ProcessingTracker(selected);
+        var response = await RunCoreAsync(conversation, message, offline, selected, processing, cancellationToken);
+        return response with { Processing = processing.Finish() };
+    }
+    private async Task<ChatResponse> RunCoreAsync(Conversation conversation, string message, bool offline,
+        ConfiguredModel selected, ProcessingTracker processing, CancellationToken cancellationToken)
     {
         if (offline)
             return new(conversation.Id, "Explicit local offline mode: no model, knowledge search, or live Azure investigation is available. Sign in to a configured hosted environment for grounded assistance.", [], [],
                 ["Offline mode does not use real data and cannot verify application status."]);
+        if (HealthQuestion.TryResolve(message, config["Azure:HealthApplication"], out var application))
+        {
+            var health = await healthSkill.ExecuteAsync(application, "application", null, cancellationToken);
+            return new(conversation.Id, health.Report, [], health.Evidence is null ? [] : [health.Evidence],
+                health.Warning is null ? [] : [health.Warning]);
+        }
         var ledger = new EvidenceLedger();
+        [Description("Run the packaged azure-health-model-state skill through Azure MCP to determine evaluated application health. Required for healthy/unhealthy, application health or health model questions; never infer health from metrics or Resource Health.")]
+        async Task<string> GetApplicationHealth(
+            [Description("Application tag value, explicit key=value tag, exact model name or full health model resource ID.")] string input,
+            [Description("One of application, tag, model or resourceId. Use application for an application name, model for an explicit health model name.")] string kind = "application",
+            [Description("Resource group supplied by the user, or null to discover within the authorized subscription.")] string? resourceGroup = null)
+        {
+            ledger.CountTool();
+            var result = await healthSkill.ExecuteAsync(input, kind, resourceGroup, cancellationToken);
+            ledger.HealthReports.Add(result.Report);
+            if (result.Evidence is not null) ledger.Azure.Add(result.Evidence);
+            if (result.Warning is not null) ledger.Warnings.Add(result.Warning);
+            return result.Report;
+        }
         [Description("Search published employee helpdesk knowledge and return real citation IDs and source excerpts.")]
         async Task<string> SearchKnowledge([Description("Employee helpdesk knowledge search text, maximum 500 characters.")] string query)
         {
@@ -54,13 +84,14 @@ public sealed class HelpdeskAgent(IConfiguration config, IKnowledgeService knowl
         }
         await SearchKnowledge(message);
         if (!Uri.TryCreate(config["AzureOpenAI:Endpoint"], UriKind.Absolute, out var endpoint) || endpoint.Scheme != "https" ||
-            string.IsNullOrWhiteSpace(config["AzureOpenAI:ApiKey"]) || string.IsNullOrWhiteSpace(config["AzureOpenAI:Deployment"]))
+            string.IsNullOrWhiteSpace(config["AzureOpenAI:ApiKey"]) || string.IsNullOrWhiteSpace(selected.Deployment))
             return new(conversation.Id, "The model capability is unavailable. Please contact the service desk or try again later.",
                 [], [], [.. ledger.Warnings, "Azure OpenAI is not configured."]);
         var tools = new List<AITool>
         {
             AIFunctionFactory.Create(SearchKnowledge, "SearchKnowledge"),
-            AIFunctionFactory.Create(InvestigateAzure, "InvestigateAzure")
+            AIFunctionFactory.Create(InvestigateAzure, "InvestigateAzure"),
+            AIFunctionFactory.Create(GetApplicationHealth, "GetApplicationHealth")
         };
         var instructions = """
             You are an employee IT helpdesk assistant. Respond only with JSON:
@@ -78,28 +109,35 @@ public sealed class HelpdeskAgent(IConfiguration config, IKnowledgeService knowl
             Metrics/request success and resource state are not endpoint uptime. Probe results are sampled;
             report actual executed coverage and missing data, never infer a full 24h SLA.
             For recent deployments/configuration changes use operation 'activity'; events alone do not establish causation.
-            For Azure platform Resource Health use operation 'health'; this is not HTTP uptime.
+            For Azure platform Resource Health use operation 'health'; this is not HTTP uptime or evaluated application health.
+            For whether an application is healthy, its health state or health model status, ALWAYS run
+            GetApplicationHealth (azure-health-model-state skill). Never substitute InvestigateAzure,
+            metrics, platform Resource Health, prior chat answers or absence of alerts for application health.
+            If asked for this helpdesk application's health, use the configured application tag below,
+            NOT the backend/frontend infrastructure aliases. If the application is unclear, ask which one.
+            If multiple models match, ask the user to select one; never choose a model or invent health.
             Subscription-wide outage attribution and configuration payloads are unavailable capabilities.
             Explain evidence gaps. Do not expose raw estate inventories or personal telemetry.
             Never claim a real-time fact without returned Azure evidence.
             """;
         var aliases = config.GetSection("Azure:ApplicationResources").Get<ApplicationResource[]>() ?? [];
         instructions += "\nAuthorized aliases: " + JsonSerializer.Serialize(aliases.Select(a => a.Alias));
-        var client = new OpenAI.Chat.ChatClient(config["AzureOpenAI:Deployment"]!,
-            new ApiKeyCredential(config["AzureOpenAI:ApiKey"]!),
-            new OpenAIClientOptions { Endpoint = new Uri(endpoint, "/openai/v1/") });
-        AIAgent agent = client.AsAIAgent(
+        instructions += "\nThis helpdesk application's configured application tag: " +
+            JsonSerializer.Serialize(config["Azure:HealthApplication"]);
+        instructions += "\nActive packaged skill: " + ApplicationHealthSkill.Name + "\n" + healthSkill.Instructions;
+        var client = models.Create(selected.Deployment, endpoint, config["AzureOpenAI:ApiKey"]!, selected.Api);
+        using var invokingClient = new FunctionInvokingChatClient(new EvidenceBoundChatClient(client, ledger, processing))
+        {
+            MaximumIterationsPerRequest = 4,
+            MaximumConsecutiveErrorsPerRequest = 1,
+            AllowConcurrentInvocation = false
+        };
+        AIAgent agent = invokingClient.AsAIAgent(
             new ChatClientAgentOptions
             {
                 Name = "EmployeeHelpdesk",
-                ChatOptions = ModelChatOptions.Create(instructions, tools, config["AzureOpenAI:ReasoningEffort"]),
+                ChatOptions = ModelChatOptions.Create(instructions, tools, selected.ReasoningEffort, selected.Api),
                 UseProvidedChatClientAsIs = true
-            },
-            clientFactory: chatClient => new FunctionInvokingChatClient(new EvidenceBoundChatClient(chatClient, ledger))
-            {
-                MaximumIterationsPerRequest = 4,
-                MaximumConsecutiveErrorsPerRequest = 1,
-                AllowConcurrentInvocation = false
             });
         var messages = BuildMessages(conversation, message, ledger.Knowledge.Values);
         try
@@ -109,9 +147,11 @@ public sealed class HelpdeskAgent(IConfiguration config, IKnowledgeService knowl
         }
         catch (Exception) when (!cancellationToken.IsCancellationRequested)
         {
-            return new(conversation.Id, "The model could not complete a verified answer. Please try again or contact the service desk.",
+            return new(conversation.Id, ledger.HealthReports.Count > 0 ? string.Join("\n\n", ledger.HealthReports) :
+                "The model could not complete a verified answer. Please try again or contact the service desk.",
                 [], ledger.Azure.ToArray(), [.. ledger.Warnings, "Model response unavailable."]);
         }
+
     }
 
     public static List<ChatMessage> BuildMessages(Conversation conversation, string message,
@@ -127,4 +167,23 @@ public sealed class HelpdeskAgent(IConfiguration config, IKnowledgeService knowl
         messages.Add(new(ChatRole.User, message));
         return messages;
     }
+}
+
+public interface IHelpdeskModelClientFactory
+{
+    IChatClient Create(string deployment, Uri endpoint, string apiKey, string api = "chatCompletions");
+}
+
+public sealed class HelpdeskModelClientFactory : IHelpdeskModelClientFactory
+{
+#pragma warning disable OPENAI001 // The pinned SDK marks the Responses adapter experimental.
+    public IChatClient Create(string deployment, Uri endpoint, string apiKey, string api = "chatCompletions") => api switch
+    {
+        "chatCompletions" => new OpenAI.Chat.ChatClient(deployment, new ApiKeyCredential(apiKey),
+            new OpenAIClientOptions { Endpoint = new Uri(endpoint, "/openai/v1/") }).AsIChatClient(),
+        "responses" => new OpenAI.Responses.ResponsesClient(new ApiKeyCredential(apiKey),
+            new OpenAI.Responses.ResponsesClientOptions { Endpoint = new Uri(endpoint, "/openai/v1/") }).AsIChatClient(deployment),
+        _ => throw new InvalidOperationException("Unsupported Azure OpenAI API.")
+    };
+#pragma warning restore OPENAI001
 }

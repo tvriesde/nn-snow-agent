@@ -10,6 +10,10 @@ param modelSku string
 param modelCapacity int
 param modelLocation string
 param modelDeploymentName string
+param lunaModelEnabled bool = true
+@minValue(1)
+@maxValue(333)
+param lunaModelCapacity int = 10
 
 var suffix = uniqueString(resourceGroup().id)
 var tags = { application: 'employee-it-helpdesk', ownershipId: ownershipId }
@@ -116,6 +120,13 @@ resource model 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
     versionUpgradeOption: 'NoAutoUpgrade'
   }
 }
+module lunaModel 'additional-model.bicep' = if (lunaModelEnabled) {
+  name: '${namePrefix}-luna-model'
+  params: {
+    openAIAccountName: openai.name
+    capacity: lunaModelCapacity
+  }
+}
 resource vault 'Microsoft.KeyVault/vaults@2023-07-01' = {
   name: 'kv-${suffix}'
   location: location
@@ -156,14 +167,20 @@ resource backend 'Microsoft.Web/sites@2024-04-01' = {
       alwaysOn: false
       minTlsVersion: '1.2'
       ftpsState: 'Disabled'
-      appSettings: map(items({
+      appSettings: map(items(union({
         AzureOpenAI__Endpoint: openai.properties.endpoint
         AzureOpenAI__ApiKey: '@Microsoft.KeyVault(VaultName=${vault.name};SecretName=azure-openai-key)'
         AzureOpenAI__Deployment: model.name
         AzureOpenAI__ReasoningEffort: modelName == 'gpt-5-nano' ? 'low' : ''
+        AzureOpenAI__DefaultModelId: modelName
+        AzureOpenAI__Models__0__Id: modelName
+        AzureOpenAI__Models__0__Label: modelName == 'gpt-5-nano' ? 'GPT-5 nano' : modelName
+        AzureOpenAI__Models__0__Deployment: model.name
+        AzureOpenAI__Models__0__ReasoningEffort: modelName == 'gpt-5-nano' ? 'low' : ''
         Search__Endpoint: 'https://${search.name}.search.windows.net'
         Search__IndexName: 'servicenow-knowledge'
         Azure__SubscriptionId: subscription().subscriptionId
+        Azure__HealthApplication: 'employee-it-helpdesk'
         Azure__TenantId: tenantId
         Azure__LogAnalyticsWorkspace: workspace.name
         Azure__ApplicationInsightsResourceId: insights.id
@@ -186,7 +203,27 @@ resource backend 'Microsoft.Web/sites@2024-04-01' = {
         XDT_MicrosoftApplicationInsights_Mode: 'recommended'
         APPINSIGHTS_PROFILERFEATURE_VERSION: 'disabled'
         APPINSIGHTS_SNAPSHOTFEATURE_VERSION: 'disabled'
-      }), setting => { name: setting.key, value: setting.value })
+      }, lunaModelEnabled ? {
+        AzureOpenAI__Models__1__Id: 'gpt-6-luna'
+        AzureOpenAI__Models__1__Label: 'GPT-6 luna'
+        AzureOpenAI__Models__1__Deployment: lunaModel!.outputs.modelDeploymentName
+        AzureOpenAI__Models__1__ReasoningEffort: 'low'
+        AzureOpenAI__Models__1__Api: 'responses'
+        AzureOpenAI__Models__1__Pricing__InputPerMillion: '0.12'
+        AzureOpenAI__Models__1__Pricing__CachedInputPerMillion: '0.012'
+        AzureOpenAI__Models__1__Pricing__CacheWritePerMillion: '0.15'
+        AzureOpenAI__Models__1__Pricing__OutputPerMillion: '0.60'
+        AzureOpenAI__Models__1__Pricing__MaximumInputTokens: '20000'
+        AzureOpenAI__Models__1__Pricing__Source: 'https://prices.azure.com/api/retail/prices'
+        AzureOpenAI__Models__1__Pricing__AsOf: '2026-10-02'
+      } : {}, modelName == 'gpt-5-nano' ? {
+        AzureOpenAI__Models__0__Pricing__InputPerMillion: '0.055'
+        AzureOpenAI__Models__0__Pricing__CachedInputPerMillion: '0.0055'
+        AzureOpenAI__Models__0__Pricing__OutputPerMillion: '0.44'
+        AzureOpenAI__Models__0__Pricing__MaximumInputTokens: '20000'
+        AzureOpenAI__Models__0__Pricing__Source: 'https://prices.azure.com/api/retail/prices'
+        AzureOpenAI__Models__0__Pricing__AsOf: '2026-10-02'
+      } : {})), setting => { name: setting.key, value: setting.value })
     }
   }
 }
@@ -328,6 +365,7 @@ output resources object = {
   backendUrl: 'https://${backend.properties.defaultHostName}'
   frontendName: frontend.name
   frontendId: frontend.id
+  appServicePlanId: plan.id
   frontendUrl: 'https://${frontend.properties.defaultHostName}'
   indexerName: indexer.name
   indexerId: indexer.id

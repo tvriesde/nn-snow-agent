@@ -4,16 +4,24 @@ using AiResponse = Microsoft.Extensions.AI.ChatResponse;
 
 namespace Helpdesk.Backend;
 
-public sealed class EvidenceBoundChatClient(IChatClient innerClient, EvidenceLedger ledger)
+public sealed class EvidenceBoundChatClient(IChatClient innerClient, EvidenceLedger ledger, ProcessingTracker? processing = null)
     : DelegatingChatClient(innerClient)
 {
-    public override Task<AiResponse> GetResponseAsync(IEnumerable<ChatMessage> messages,
-        ChatOptions? options = null, CancellationToken cancellationToken = default) =>
-        base.GetResponseAsync(messages, BoundOptions(options), cancellationToken);
+    public override async Task<AiResponse> GetResponseAsync(IEnumerable<ChatMessage> messages,
+        ChatOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        processing?.StartModelCall();
+        var response = await base.GetResponseAsync(messages, BoundOptions(options), cancellationToken);
+        processing?.RecordResponse(response);
+        return response;
+    }
 
     public override IAsyncEnumerable<ChatResponseUpdate> GetStreamingResponseAsync(IEnumerable<ChatMessage> messages,
-        ChatOptions? options = null, CancellationToken cancellationToken = default) =>
-        base.GetStreamingResponseAsync(messages, BoundOptions(options), cancellationToken);
+        ChatOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        processing?.StartModelCall();
+        return base.GetStreamingResponseAsync(messages, BoundOptions(options), cancellationToken);
+    }
 
     private ChatOptions BoundOptions(ChatOptions? options)
     {

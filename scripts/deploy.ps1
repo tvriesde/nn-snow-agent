@@ -48,7 +48,7 @@ try {
         if (!(Test-Path $path)) { throw "Required application artifact is missing: $path" }
     }
     if ($DownloadPinnedMcp -and $McpExecutablePath) { throw 'Choose DownloadPinnedMcp OR an existing McpExecutablePath, not both.' }
-    if (!$McpExecutablePath) { $McpExecutablePath = Get-PinnedLinuxMcp -Destination (Join-Path $root '.azure\mcp\3.0.0-beta.48') -PackageFeedIndex $McpPackageFeedIndex }
+    if (!$McpExecutablePath) { $McpExecutablePath = Get-PinnedLinuxMcp -Destination (Join-Path $root '.azure\mcp\3.0.0-beta.49') -PackageFeedIndex $McpPackageFeedIndex }
     Assert-LinuxMcpExecutable $McpExecutablePath
     Assert-AzureContext $SubscriptionId $TenantId
     if (Test-Path $OwnershipManifest) {
@@ -73,7 +73,7 @@ try {
     }
     $manifest.mcpArtifact = @{
         packageId = 'Azure.Mcp.linux-x64'
-        version = '3.0.0-beta.48'
+        version = '3.0.0-beta.49'
         runtime = 'linux-x64'
         executableSha256 = (Get-FileHash $McpExecutablePath -Algorithm SHA256).Hash.ToLowerInvariant()
     }
@@ -185,6 +185,7 @@ try {
     $r = $deployment.properties.outputs.resources.value
     $manifest.resources = $r
     $manifest.readerRoleAssignmentId = $deployment.properties.outputs.readerRoleAssignmentId.value
+    $manifest.healthModelReaderRoleAssignmentId = $deployment.properties.outputs.healthModelReaderRoleAssignmentId.value
     Save-Ownership $manifest $OwnershipManifest
 
     $ownedFrontend = @($manifest.ownedApplications | Where-Object { $_.clientId -eq $FrontendClientId }).Count -gt 0

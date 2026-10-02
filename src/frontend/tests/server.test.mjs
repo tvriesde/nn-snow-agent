@@ -46,6 +46,14 @@ test('production server health, public runtime configuration, assets and SPA fal
     assert.equal(diagramResponse.status, 200);
     assert.match(diagramResponse.headers.get('content-type'), /json/);
     assert.equal((await diagramResponse.json()).type, 'excalidraw');
+    for (const logo of ['/nn-logo.svg', '/nn-logo-dark.svg']) {
+      const response = await fetch(`${url}${logo}`);
+      assert.equal(response.status, 200);
+      assert.equal(response.headers.get('content-type'), 'image/svg+xml');
+      const svg = await response.text();
+      assert.match(svg, /<svg[^>]+viewBox="0 -7\.5 196 60"/);
+      assert.doesNotMatch(svg, /<script|\son[a-z]+=|xlink:href|<foreignObject/i);
+    }
     assert.equal(await (await fetch(`${url}/auth/callback`)).text(), html);
     const script = html.match(/<script[^>]+src="([^"]+)"/)[1];
     const asset = await fetch(new URL(script, url));

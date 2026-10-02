@@ -85,9 +85,9 @@ function Assert-LinuxMcpExecutable {
                 throw 'MCP artifact must be a native Linux x64 ELF executable, not a Windows tool or shell shim.'
             }
         } finally { $stream.Dispose() }
-        $expected = '5a290d770c3fd962c69579a827a4690b515543534313ac113c9ebb2469327ce8'
+        $expected = 'c6ad14d6f4fd86c0ba4857bcc7418fe0ec7658c8d9948a2f275406e113e18eb4'
         if ((Get-FileHash $Path -Algorithm SHA256).Hash -ine $expected) {
-            throw 'MCP binary does not match the verified Azure.Mcp 3.0.0-beta.48 Linux x64 artifact.'
+            throw 'MCP binary does not match the verified Azure.Mcp 3.0.0-beta.49 Linux x64 artifact.'
         }
     }
 
@@ -99,8 +99,8 @@ function Restore-PinnedMcpPackage {
     if (!$addresses.Count) { throw 'Trusted NuGet service index has no PackageBaseAddress.' }
     $base = ([string]$addresses[0].'@id').TrimEnd('/')
     if (([uri]$base).Scheme -ne 'https') { throw 'PackageBaseAddress must use HTTPS.' }
-    $url = "$base/azure.mcp.linux-x64/3.0.0-beta.48/azure.mcp.linux-x64.3.0.0-beta.48.nupkg"
-    $archive = Join-Path $Destination 'azure.mcp.linux-x64.3.0.0-beta.48.nupkg'
+    $url = "$base/azure.mcp.linux-x64/3.0.0-beta.49/azure.mcp.linux-x64.3.0.0-beta.49.nupkg"
+    $archive = Join-Path $Destination 'azure.mcp.linux-x64.3.0.0-beta.49.nupkg'
     $partial = "$archive.download"
     try {
         Invoke-WebRequest $url -OutFile $partial -TimeoutSec 300
@@ -121,7 +121,7 @@ function Restore-PinnedMcpPackage {
     $specs = @(Get-ChildItem $distribution -File -Filter '*.nuspec')
     if ($specs.Count -ne 1) { throw 'Pinned runtime package must contain exactly one nuspec.' }
     [xml]$spec = Get-Content $specs[0].FullName -Raw
-    if ($spec.package.metadata.id -ine 'Azure.Mcp.linux-x64' -or $spec.package.metadata.version -ne '3.0.0-beta.48') {
+    if ($spec.package.metadata.id -ine 'Azure.Mcp.linux-x64' -or $spec.package.metadata.version -ne '3.0.0-beta.49') {
         throw 'Trusted-feed artifact package identity/version mismatch.'
     }
     $executable = Join-Path $distribution 'tools\any\linux-x64\azmcp'
@@ -134,8 +134,8 @@ function Get-PinnedLinuxMcp {
             [string]$Destination,
             [string]$PackageFeedIndex = 'https://packagefeedproxy.microsoft.io/nuget/v3/index.json'
         )
-        $version = '3.0.0-beta.48'
-        $hash = 'dcb962cfe796a75d2a0fd00e64c1ba5d1dd6aa95b42df82b0f288d133568d875'
+        $version = '3.0.0-beta.49'
+        $hash = '91fd91b6dfd218c6a433fa446730251d6e8fe0cc2b72ea7dc06c79a713b78975'
         $url = "https://github.com/microsoft/mcp/releases/download/Azure.Mcp.Server-$version/Azure.Mcp.Server-linux-x64.zip"
         New-Item -ItemType Directory -Path $Destination -Force | Out-Null
         $archive = Join-Path $Destination "Azure.Mcp.Server-$version-linux-x64.zip"

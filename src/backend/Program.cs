@@ -64,9 +64,16 @@ builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddSingleton<ConversationStore>();
 builder.Services.AddSingleton<IKnowledgeService, KnowledgeService>();
 builder.Services.AddSingleton<AzureToolPolicy>();
-builder.Services.AddSingleton<IAzureInvestigator, AzureMcpService>();
+builder.Services.AddSingleton<AzureMcpService>();
+builder.Services.AddSingleton<IAzureInvestigator>(s => s.GetRequiredService<AzureMcpService>());
+builder.Services.AddSingleton<IHealthModelMcp>(s => s.GetRequiredService<AzureMcpService>());
+builder.Services.AddSingleton<ApplicationHealthSkill>();
+builder.Services.AddSingleton<IHelpdeskModelClientFactory, HelpdeskModelClientFactory>();
+builder.Services.AddSingleton<ModelCatalog>();
 builder.Services.AddTransient<HelpdeskAgent>();
 var app = builder.Build();
+_ = app.Services.GetRequiredService<ApplicationHealthSkill>();
+_ = app.Services.GetRequiredService<ModelCatalog>();
 app.UseExceptionHandler(handler => handler.Run(async context =>
 {
     context.Response.StatusCode = 500;
@@ -79,6 +86,7 @@ app.UseRateLimiter();
 app.MapGet("/health/live", () => Results.Ok(new { status = "alive" })).AllowAnonymous();
 var api = app.MapGroup("/api").RequireAuthorization("Employee").RequireRateLimiting("EmployeeRate");
 api.MapGet("/examples", () => Results.Ok(Examples.Catalog));
+api.MapGet("/models", (ModelCatalog models) => Results.Ok(models.PublicCatalog()));
 api.MapGet("/sources/{id}", async (string id, IKnowledgeService knowledge, CancellationToken ct) =>
 {
     if (local) return Results.Problem("Knowledge retrieval is unavailable in explicit local offline mode.", statusCode: 503);
@@ -90,10 +98,12 @@ api.MapGet("/sources/{id}", async (string id, IKnowledgeService knowledge, Cance
     }
     catch (Exception) when (!ct.IsCancellationRequested) { return Results.Problem("Knowledge retrieval is unavailable.", statusCode: 503); }
 });
-api.MapPost("/chat", async (ChatRequest request, HttpContext context, ConversationStore store, HelpdeskAgent agent) =>
+api.MapPost("/chat", async (ChatRequest request, HttpContext context, ConversationStore store, HelpdeskAgent agent, ModelCatalog models) =>
 {
     if (!AccessPolicy.ValidRequest(request)) return Results.BadRequest(new { error = "Message must contain 1–4000 characters; conversationId must be a UUID." });
     if (context.Request.ContentLength > 20000) return Results.StatusCode(413);
+    if (!models.TryResolve(request.ModelId, out _))
+        return Results.BadRequest(new { error = "The requested model is not available. Choose a model from the model catalog." });
     Conversation conversation;
     try { conversation = store.Get(AccessPolicy.UserKey(context.User)!, request.ConversationId); }
     catch (ConversationNotFoundException) { return Results.NotFound(new { error = "Conversation not found or expired." }); }
@@ -104,7 +114,7 @@ api.MapPost("/chat", async (ChatRequest request, HttpContext context, Conversati
         if (conversation.History.Count >= 12) return Results.Problem("Conversation turn limit reached. Start a new conversation.", statusCode: 409);
         using var timeout = CancellationTokenSource.CreateLinkedTokenSource(context.RequestAborted);
         timeout.CancelAfter(TimeSpan.FromSeconds(75));
-        var response = await agent.RunAsync(conversation, request.Message, local, timeout.Token);
+        var response = await agent.RunAsync(conversation, request.Message, local, timeout.Token, request.ModelId);
         conversation.History.Add((request.Message, response.Answer));
         return Results.Ok(response);
     }

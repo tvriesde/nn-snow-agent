@@ -1,10 +1,416 @@
 # Insurance IT Helpdesk Agent - Deployment Plan
 
-Status: Validated - implementation and Azure deployment approved.
+Status: Deployed - verified multi-model application
 
 Date: 2026-09-30
 
+## GPT-6 luna and per-answer processing metadata (2026-10-02)
+
+User approved: add one GPT-6 luna deployment to the existing owned Azure
+OpenAI service in Sweden Central, EU DataZoneStandard, retaining GPT-5 nano.
+Expose a server-owned model catalog and validate each selected model ID; no
+user-supplied endpoints/deployment names. Add an accessible UI select box and
+show server elapsed time, actual model used/bypassed and complete reported
+token usage across all model rounds. Cost is optional and must be labeled an
+estimate using verified/configured prices and complete usage; do not invent
+missing counts or claim total Azure bill cost. Keep MCP-only health fast path,
+permissions, single-tenant sign-in, indexer and health model unchanged.
+
+Research deployment capacity/version/SKU and compatibility with tool calls,
+strict JSON and reasoning parameters before finalizing approval. Validate
+code/infrastructure and deploy only the extra model plus backend/frontend
+packages/settings, never the full unrelated infrastructure update.
+
+Confirmed version `2026-09-22`, deployment `helpdesk-luna`, capacity 10,
+DataZoneStandard. The existing resource catalog reports GA, chat completions
+and this EU SKU, with quota headroom. Keep `helpdesk-mini` as the default.
+Selections apply per turn without changing ownership or existing conversation
+history; invalid model IDs are rejected rather than silently switching.
+Record usage inside each model round so tool-loop input/output/reasoning
+counts are not lost. Missing usage in any round withholds aggregate tokens
+and estimates. Health fast-path answers explicitly report no model invocation.
+Server elapsed time excludes browser/network latency.
+
+Official Azure retail pricing API has verified GPT-6 luna short-context
+Data Zone Standard USD/1M rates: input 0.12, cached input 0.012, cache write
+0.15, output 0.60 (effective 2026-09-01). Do not use the conflicting
+third-party/search-summary prices. A cost estimate requires the complete
+billable breakdown (including cache writes) and applicable context tier;
+otherwise show why unavailable. No estimate represents total question cost
+including Search, hosting, monitoring, tax or negotiated billing.
+
+### Multi-model preparation and verification
+
+Live provisioning succeeded for luna with the approved version/SKU/capacity,
+preserving nano. Compatibility testing then found that luna rejects function
+tools with low reasoning on Chat Completions. User explicitly chose
+**Responses API for luna with low reasoning**, not disabling reasoning.
+Use the pinned SDK's Responses IChatClient adapter, preserve existing agent
+tools/evidence limits and per-round accounting, and explicitly set store=false.
+Nano keeps its existing Chat Completions path. Revalidate changed code/packages
+before app deployment; no additional infrastructure or permission changes.
+Responses adaptation is implemented and tested: 90 focused backend tests pass.
+Live synthetic **actual SDK** tool loops pass for both models, with strict
+evidence schema, low reasoning, two model rounds and complete real usage.
+Nano returned 398 input + 249 output = 647 total, 0 cached, 192 reasoning and
+USD 0.00013145 model-token estimate. Luna returned 237 + 42 = 279 total,
+0 cached, 0 reported reasoning; estimate honestly withheld for missing write
+counts. These synthetic results are not general latency/cost benchmarks.
+Proof is `.azure/multi-model-compatibility.json`; credentials were memory-only.
+Regenerate packages and repeat the mandatory validation workflow before deploy.
+
+- [x] Server-owned catalog, protected API, exact per-turn selection and unchanged history.
+- [x] Accessible native dropdown and per-answer elapsed time/complete token details.
+- [x] Per-round immutable usage snapshots, verified through real SDK HTTP fixtures
+  and tool loop (SDK aggregate mutation must not double-count).
+- [x] Backend targeted build/tests: 87 passed, including API authorization,
+  invalid model IDs, complete/missing/overflow usage and MCP-only health bypass.
+- [x] Frontend typecheck, existing helper/server tests and rendered dropdown
+  tests passed. Matching React 19.2 DOM types added for typed rendering tests.
+- [x] Both Bicep entry points compile; only pre-existing CloudHealth BCP081
+  preview-schema warnings remain.
+- [x] Configure verified nano USD/1M input/cached/output 0.055/0.0055/0.44,
+  checked 2026-10-02. Configure luna rates with cache-write guard; its estimate
+  remains unavailable. Conservative 20,000 input/call estimate applicability
+  guard is not a claimed provider tier threshold.
+- [x] Update backend/infrastructure README, architecture reference, ADR and HTML.
+- [x] Resume after crash: approved subscription/tenant unchanged; live OpenAI
+  still has only the original healthy-provisioned helpdesk-mini deployment.
+- [x] Fresh ARM validation and what-if: only one new deployment permitted.
+- [x] Final Release packages with verified packaged skill and MCP hashes.
+- [x] Provision luna, verify both deployment API contracts and usage.
+- [x] Update only required backend catalog/pricing settings; deploy both ZIPs.
+- [x] Verify live hosting, protected API, hosted bundle and persist deployment proof.
+
+### Section 7: Validation Proof for multi-model deployment
+
+All validation checks pass:
+
+- [x] Core validation: CLI/authentication, selective Bicep compilation, ARM
+  resource-group validation and what-if restricted to one new deployment.
+- [x] Bicep lint/compiler: no new warnings; existing CloudHealth BCP081 only.
+- [x] Azure Policy validation: inherited resource-group assignments are empty.
+- [x] Release build/package verification, frontend production export and tests.
+- [x] Static role verification: no new roles or identities required.
+- [x] Record successful preflight and package/hash proof.
+
+2026-10-02: ownership tag and approved subscription/tenant verified. Luna EU
+DataZoneStandard quota is usage 0, limit 333; requested capacity remains 10.
+
+Proof:
+
+- Official azure-validate helper, resource-group scope, copied exact standalone
+  template `.azure/multi-model-validation-20261002.bicep` and
+  `.azure/luna.parameters.json`: OVERALL PASS for CLI, authentication,
+  Bicep compilation, ARM validation and what-if. Its textual create count 2
+  includes a summary line; machine-readable what-if independently asserts
+  exactly one Create for `helpdesk-luna`, no Modify/Delete or other mutations,
+  recorded in `.azure/luna-what-if.json`. JSON retrieval requires
+  `--no-pretty-print`.
+- Backend focused VSTest run covering ModelSelectionAndUsageTests,
+  ModelChatOptionsTests, ApplicationHealthSkillTests, ApiTests and PolicyTests:
+  87 passed. SDK fixture caught/fixed response-usage mutation; snapshots preserve
+  actual per-round values without double-counting. Release publish passed.
+- Frontend `npm run typecheck`, final `npm test`/production export:
+  17 passed; bundle `index-115ca460f54fd6e4cd3bf909457c23e4.js`.
+- ZIPs `.azure/packages/multi-model-backend.zip` (72,686,838 bytes) and
+  `.azure/packages/multi-model-frontend.zip` (238,999 bytes) built.
+  Exact source/published skill hash matches. MCP beta.49 ELF and executable
+  SHA256 verified by existing helper; ZIP Unix mode is 33261 (unsigned 0755
+  regular file), and required skill/native executable entries exist.
+- Static role verification: selective template adds no identities/roles.
+  Existing model-key/Key Vault configuration remains; backend Search reader,
+  vault secret reader, telemetry publisher and scoped MCP roles are unchanged.
+  Indexer storage/Search roles are not part of this deployment. No new grant.
+- Failures resolved: SDK double-counting fixed/tested, conditional Bicep warning
+  removed, matching React DOM types installed without upgrading React, JSON
+  what-if parsing and signed ZIP-mode verification corrected. No pending errors.
+
+Final revalidation after the approved Responses adaptation:
+
+- Official helper repeated successfully: OVERALL PASS; full source compiles
+  with only existing CloudHealth BCP081 warnings. Final machine-readable
+  what-if has one Modify for the already provisioned luna resource:
+  omitted service-reported `currentCapacity` and implicit
+  `raiPolicyName=Microsoft.DefaultV2`. There are **no resource deletes** and no
+  changes to other resources. No further ARM deployment is in scope; only app
+  settings/ZIPs are executed now. Evidence: `.azure/luna-final-what-if.json`.
+- 90 backend targeted tests pass, including actual Responses transport/tool
+  loop, strict schema refresh, low reasoning, store=false, usage mapping and
+  rejection of unsupported APIs. Both live SDK synthetic model tests pass.
+- Final frontend typecheck/export/tests: 17 passed; updated architecture bundle
+  `index-1cb587a3678ea9ab4f0f0d23570ca413.js`.
+- Final ZIPs/hash proof `.azure/multi-model-packages.json`: backend 72,687,313
+  bytes, SHA256 `B481580A47C58F534D38A931259FF1FFD04A995FE39C1CF957D4A8451FA9DFFF`;
+  frontend 239,061 bytes, SHA256
+  `1ED1EEC0D38E525995975981939286A4ABC75AA404715A9DCB6A8D65184662E0`.
+  Rechecked exact skill/MCP hashes and ZIP executable mode. Static roles remain
+  unchanged; no new permissions, auth changes, indexer or health-model updates.
+- All code/build/live SDK compatibility failures are resolved. Final deployment
+  sets only the nonsecret model catalog/default/pricing keys in
+  `.azure/multi-model-settings.json`; all other existing settings are preserved.
+
+### Multi-model deployment verification (2026-10-02)
+
+- ARM `helpdesk-luna-20261002`: Succeeded. Luna is `2026-09-22`,
+  DataZoneStandard capacity 10, NoAutoUpgrade; original nano remains
+  `2025-08-07`, DataZoneStandard capacity 50, NoAutoUpgrade.
+- Backend deployment `3b066966-031a-4a29-b2a2-11d72442f2c4` and frontend
+  `6c123284-c474-4729-8609-8a4d479415fe`: RuntimeSuccessful, one successful
+  instance each, zero failed/in-progress instances.
+- Set exactly the model catalog/default/pricing keys, then compared all
+  pre-existing unrelated settings in memory: unchanged. Credentials, endpoint,
+  auth and MCP configuration were neither printed nor altered.
+- Backend/frontend `/health/live`, frontend home and `/architecture`: HTTP 200.
+  Protected `/api/models` and `/api/examples`: anonymous HTTP 401. Public
+  runtime backend URL remains correct.
+- Hosted bundle `index-1cb587a3678ea9ab4f0f0d23570ca413.js` matches local
+  SHA256 exactly and contains selector, processing and Responses architecture
+  text. Evidence: `.azure/multi-model-live-verification.json`.
+- Live backend roles verified: Search Index Data Reader, vault Key Vault
+  Secrets User and Insights Monitoring Metrics Publisher at their original
+  scopes. MCP retains exactly subscription Reader and workspace Log Analytics
+  Reader. No role changes required or executed.
+- Actual SDK synthetic two-round calls verified both deployed models' tool,
+  strict schema, reasoning and complete usage contracts. This is not a
+  signed-in end-to-end browser acceptance or general latency benchmark.
+  Respect the user's prior manual-browser-check preference; no auth bypass or
+  repeated login request.
+- Deployment IDs, exact package/bundle/skill/MCP hashes, model versions/APIs,
+  capacities and verified pricing persisted in the ignored ownership journal.
+  Indexer, Search, health-model content, tenant restrictions and hosting remain
+  unchanged. No commits created.
+
+## Approved health readability and latency update (2026-10-02)
+
+User explicitly chose MCP-only health access and reconfirmed redeployment to
+the existing snowdemo backend/frontend in Sweden Central and the same
+subscription. Deploy application ZIPs only; do not change hosting, app
+settings, permissions, indexer/checkpoints or health-model configuration.
+The prior skill deployment completed with RuntimeSuccessful for backend
+`36fa6e26-44f3-4be6-a51e-16abee45e90c` and frontend
+`29d4cd4b-f1f6-46d9-91b4-4574fbaa7db7`; authenticated acceptance was stopped
+at user request. The user subsequently supplied a screenshot of a Degraded
+report, not a new independent health observation.
+
+Lead with readable health state/meaning/UTC check time and keep technical
+provenance in expandable evidence. Beta.49 exposes no component-health or
+failing-signal command; do not attribute degradation to a service or root cause.
+Run the packaged skill directly for narrow, standalone health questions,
+without Search/OpenAI rounds; mixed/ambiguous queries retain normal routing.
+Always query fresh health and preserve tag ambiguity checks. Log skill duration
+and MCP call counts; no cached health or guaranteed latency claim.
+
+### Section 7: Validation Proof for readable health fast path
+
+All validation checks pass:
+
+- [x] Core validation: CLI/authentication, Bicep build, ARM validation and
+  what-if against the unchanged approved infrastructure.
+- [x] Docker build: not applicable (.NET/Node App Service ZIP deployment).
+- [x] Azure Policy and unchanged static/live MCP role verification.
+- [x] Backend targeted build/tests: 63 pass, covering readable state,
+  technical evidence, missing component explanations, fresh repeated lookups,
+  zero knowledge/model calls for standalone questions and API/policy regressions.
+- [x] Frontend typecheck and 11 helper tests pass; ADR HTML regenerated with
+  17 decisions and no broken internal anchors.
+- [x] Final Release publish, exact packaged skill/MCP hash and production
+  frontend ZIP validation.
+
+Proof (2026-10-02):
+
+- `dotnet test tests/backend/Helpdesk.Backend.Tests.csproj --filter
+  FullyQualifiedName~ApplicationHealthSkillTests|FullyQualifiedName~PolicyTests|
+  FullyQualifiedName~ApiTests`: 63 passed.
+- Frontend `npm run typecheck` and `npm test`: PASS; 13 total helper/server
+  tests and production export with bundle
+  `index-ee802a3b7008d8e86d196e3d1c3f5b40.js`.
+- Release backend published to `.azure/packages/health-readable-backend`.
+  Exact repository/published skill hashes match; `Assert-LinuxMcpExecutable`
+  accepted beta.49; ZIP contains the skill and executable permission bits.
+- azure-validate helper using unique
+  `health-readable-validation-20261002` template/deployment name and existing
+  `.azure/deployment.parameters.json`: OVERALL PASS for CLI, authentication,
+  Bicep compilation, ARM validation and what-if. Textual counts (17/46/21)
+  include property-level diff lines, not resource creates/deletes. The full
+  template is not in execution scope; package-only deployment preserves the
+  live health-model configuration and all infrastructure.
+- Existing owned target/context verified. Policy assignments at the group
+  with inherited scopes: zero. Unchanged static role review remains valid;
+  live MCP identity still has subscription Reader and demo-workspace Log
+  Analytics Reader, with no added permissions. This update changes no app
+  settings or model deployment.
+
+Deployment verification (2026-10-02):
+
+- Backend deployment `d22d0897-f974-465c-9a2e-a1a9413bb575` and frontend
+  deployment `b5f0901b-11a9-4333-a0b6-a76a63fd966c`: RuntimeSuccessful, one
+  successful instance and zero failures each.
+- Backend/frontend liveness, frontend home/architecture and exact new bundle:
+  HTTP 200. Hosted bundle contains the standalone fast-path documentation.
+  Unauthenticated protected API still returns 401.
+- Post-deployment MCP roles are unchanged: subscription Reader and
+  workspace-scoped Log Analytics Reader. No settings, infrastructure,
+  permissions, indexer/checkpoint, model deployment or health-model content
+  was changed. Verified skill/MCP hashes and deployment IDs recorded in the
+  ignored ownership journal; temporary Windows test distribution removed.
+- No signed-in browser health query or live latency benchmark was executed,
+  respecting the user's earlier request to check manually. Unit/integration
+  tests verify the standalone path has zero Search/model calls and fresh MCP
+  list/get on every check. This is not a measured live seconds-saved claim.
+
+## Approved application skill deployment (2026-10-02)
+
+Deploy backend and frontend packages only to the existing owned snowdemo-rg,
+subscription Tyrone-Subscription-CreditCard
+(`d860292c-5d2c-4df3-b7c8-332bd46882d1`), Sweden Central. User reconfirmed
+target and scope. Keep Entra sign-in, permissions, indexer/checkpoint and live
+health-model configuration unchanged. Do not execute the full infrastructure
+deployment script for this update.
+
+Package `.github/skills/azure-health-model-state/SKILL.md` in the backend,
+load the active workflow at startup, and expose `GetApplicationHealth`.
+Use Azure MCP beta.49 with exactly six native read-only tools, adding
+health-model list/get. Match tags/model IDs within the fixed subscription;
+report only evaluated `healthState`, with explicit Unknown/not-found/ambiguity
+and no alternate health source. Bound discovery to 20 models and 45 seconds.
+Set only the backend's health application tag/subscription display name
+settings; preserve all existing secrets and settings.
+
+### Section 7: Validation Proof for application health skill
+
+All validation checks pass (application package update):
+
+- [x] Core validation: Azure CLI/authentication, Bicep compilation,
+  ARM validation and what-if against the approved subscription.
+- [x] Docker build: not applicable; .NET/Node App Service ZIP packages.
+- [x] Azure Policy validation for the approved target.
+- [x] Final publish/skill/MCP artifact checks and role verification.
+
+- Backend targeted tests: 51 passed (first completed run), including actual
+  beta.49 six-tool stdio/schema validation without Azure calls, skill packaging,
+  state/matching/error/bounds tests, agent tool-loop execution and API/policy
+  regressions. Additional explicit command-error cases added afterward and
+  rerun before deployment.
+- Frontend typecheck, production build and 13 tests passed.
+- Azure context and existing group ownership verified with repository helpers.
+- Final validation (2026-10-02): `dotnet test
+  tests/backend/Helpdesk.Backend.Tests.csproj` passed all 64 cases, with
+  `MCP_CONTRACT_EXECUTABLE` set to the digest-verified Windows beta.49 binary
+  so the actual six-tool contract test ran. The explicit command-error
+  cases also passed. Both existing script contract suites passed.
+- `dotnet publish src/backend/Helpdesk.Backend.csproj -c Release`: PASS.
+  Published skill SHA-256 equals the repository skill; packaged Linux
+  executable matches its fixed SHA-256 and the ZIP has executable metadata.
+  Frontend production ZIP uses bundle
+  `index-e5096c51ad677a1e01b067d7340f7dcb.js`.
+- azure-validate `validate-deployment.ps1` with a unique
+  `health-skill-validation-20261002` template/deployment name, existing
+  `.azure/deployment.parameters.json`, Sweden Central and approved
+  subscription: OVERALL PASS (CLI, authentication, compile, ARM validation,
+  what-if). Resource-level JSON what-if: 25 Modify, 15 NoChange, zero resource
+  creates/deletes. Textual helper counts include property-level changes.
+  This full template is NOT being deployed; only ZIPs and two nonsecret
+  backend display/tag settings are in the approved execution scope.
+- Azure Policy assignment list at the target group with inherited scopes:
+  empty; no applicable policy blockers returned.
+- Static roles verified in main/resources Bicep against the unchanged data
+  operations. MCP health-model reads need existing management-plane Reader,
+  not a new data-plane grant. Live MCP identity/config matches snowdemo-mcp,
+  with exactly subscription Reader and workspace-scoped Log Analytics Reader.
+  Existing backend secrets/settings are not printed or replaced.
+- Verification after deployment must use the authenticated helpdesk's
+  skill/MCP path for health, not CLI/REST, previous observations or the skill's
+  historical example. Verify no-match and ambiguous/unknown behavior as well
+  as a real model lookup; HTTP uptime remains a separate capability.
+
+## Approved addition: empty health model (2026-10-02)
+
+- Deploy only `infra/health-model.bicep` to the existing owned `snowdemo-rg`;
+  do not redeploy application services or change existing health tools.
+- Subscription `d860292c-5d2c-4df3-b7c8-332bd46882d1`, tenant
+  `47c94d43-bd0b-4cc0-9c81-412496225c31`, Sweden Central and the
+  subscription-wide Reader grant explicitly reconfirmed by the user.
+- Naming: `snowdemo-health`, following `<namePrefix>-<purpose>`.
+- Empty model, API `2026-09-01-preview`, system-assigned identity,
+  `systemassigned` authentication setting, existing ownership/application tags.
+- Reusable subscription module includes Reader RBAC and is called by the main
+  template; outputs are recorded in the existing local ownership manifest.
+- Extend deletion to clean the new subscription grant, including partial
+  deployment and older-manifest recovery.
+- Preflight: correct Azure context, owned group, no existing health model;
+  CloudHealth registered, requested API and Sweden Central supported.
+- Validation: Bicep build, infrastructure/cleanup contract tests, ARM
+  validation and what-if for the standalone module.
+- Deployment verification: ARM completion, model identity and tags,
+  authentication setting, default root only/no configured signal definitions,
+  discovery rules or relationships, exact subscription
+  Reader assignment, and persisted ownership outputs.
+- All validation checks pass:
+  - [x] Core validation: Azure CLI/authentication, Bicep build, subscription
+    ARM validation and what-if for `infra/health-model.bicep`.
+  - [x] Azure Policy validation for the approved target subscription and scope.
+  - [x] Infrastructure and PowerShell cleanup contract tests.
+- Role assignment verification: only the new health model system principal
+  receives management-plane Reader at subscription scope, explicitly requested
+  and approved; no data-plane or write privileges are introduced.
+
+### Section 7: Validation Proof for the health model addition
+
+- `infra/tests/health-model-contract.ps1`: PASS; main and standalone Bicep
+  compile, empty model/authentication/Reader contract and journaled, older
+  manifest, wrong-principal cleanup paths pass with mocked Azure calls.
+- `infra/tests/safe-scripts.ps1` and
+  `tests/scripts/deployment-contract.ps1`: PASS; WhatIf makes no cloud calls,
+  existing deployment safety checks preserved.
+- azure-validate `validate-deployment.ps1 -Scope sub -Location swedencentral
+  -Template infra/health-model.bicep -Parameters
+  .azure/health-model.parameters.json`: OVERALL PASS, including ARM validation.
+- JSON what-if confirms only model, authentication setting and subscription
+  Reader are created; no existing resources are modified/deleted. The helper's
+  textual count includes a display heading; JSON has exactly three creates.
+- `az policy assignment list` for target group with inherited assignments:
+  no applicable policy assignments returned.
+- Bicep 0.46.1 has no cached type definitions for these preview resources
+  (BCP081 warnings); the supported API was confirmed by provider metadata and
+  the resource schema was validated by ARM.
+- Live deployment revealed that CloudHealth automatically creates the root
+  entity `snowdemo-health` with health state `Unknown`. Empty-model verification
+  allows only this default root, with no configured application entities,
+  signal definitions, discovery rules or relationships.
+- Deployment `snowdemo-health-model` completed successfully on 2026-10-02.
+  Model principal `d2bdaf28-c25a-4f36-9534-c98227b743fb` has exactly the requested
+  subscription Reader grant, assignment
+  `092adc63-586a-5096-8492-9ba3cd4c8d85`. Authentication and ownership outputs
+  are verified and persisted in the ignored local manifest.
+- Initial read after deployment confirmed only the automatic root entity.
+  Later verification observed four application entities and two relationships
+  created by a user after deployment (07:39 UTC); no signal definitions or
+  discovery rules were present at that check. These live additions were not
+  created by the template and are preserved, not deleted. The template remains
+  an empty-model deployment; live configuration is no longer empty.
+
 ## 1. Goal and scope
+
+### Health model content preservation (2026-10-02)
+
+User requested adding the supplied portal export to the existing module, without
+requesting a live redeployment. Preserve four entities (root, backend, frontend,
+F1 plan), four metric signals, four relationships and all exported IDs/layout/
+thresholds. Use the export's API version for content; retain existing model,
+identity, authentication and Reader configuration. Parameterize Azure resource
+IDs and pass actual application outputs through the main template. Validate
+compilation and exact content contracts; do not delete separately created live
+resources or deploy application changes for this source-only update.
+
+Validation proof for this source update (2026-10-02):
+
+- `infra/tests/health-model-contract.ps1`: PASS; both entry points compile and
+  exact exported entity/signal IDs, thresholds, intervals, layout, relationship
+  directions, parameter wiring, Reader and cleanup safety are checked.
+- `az deployment sub validate` against the confirmed existing subscription
+  with actual application resource IDs: provisioning state `Succeeded`.
+- No live deployment or deletion executed for this content-preservation update.
 
 Create an internal IT helpdesk assistant for employees of a fictional large
 insurance company. Answers combine ServiceNow-shaped knowledge retrieved from
@@ -296,6 +702,35 @@ unpublication, and same-timestamp changes for demonstrations.
 ## 7. Identity and permissions
 
 ### Validation Proof
+
+Azure MCP source pin upgrade on 2026-10-02: beta.49 is the latest official
+release checked (published 2026-10-01). Linux x64 archive SHA-256:
+`91fd91b6dfd218c6a433fa446730251d6e8fe0cc2b72ea7dc06c79a713b78975`;
+executable SHA-256:
+`c6ad14d6f4fd86c0ba4857bcc7418fe0ec7658c8d9948a2f275406e113e18eb4`.
+Six offline MCP contract tests passed with the matching Windows executable,
+including actual stdio startup, exact four-tool exposure and argument schemas.
+The configured trusted feed lists the same version. No Azure calls or deployment
+were made for this upgrade; deployed ownership/artifact history remains beta.48.
+Linux hosted identity and live operation results require post-deployment checks.
+
+Packaging validation passed: `tests/scripts/deployment-contract.ps1` accepted
+the beta.49 Linux binary, checked source pin consistency and rejected invalid
+ELF/checksum fixtures; the old beta.48 binary was also rejected. The official
+ZIP extraction helper passed, and the trusted NuGet fallback downloaded beta.49
+and matched the same executable hash. `infra/tests/safe-scripts.ps1` passed
+with zero cloud calls, frontend typecheck passed and 11 frontend helper tests
+passed. These checks do not replace live Linux hosted-identity verification.
+
+NN brand restyle incremental validation on 2026-10-02, after 08:58 CEST:
+`npm run typecheck` and `npm test` passed (13 tests, including the official
+logo and dark-wordmark SVG routes and script/handler safety). Azure CLI auth,
+`az bicep build`, and named subscription `validate`/`what-if` request
+`snowdemo-nn-brand-validation-976c1bf3` passed (Succeeded; 20 Modify,
+9 NoChange, 1 Ignore; no Create/Delete). Only SecurityCenterBuiltIn policy is
+assigned. Frontend static identity requirements are unchanged. Local browser
+verified both logo variants load and no page overflow at 320px, 375px and
+1400px in light/dark themes. Infrastructure is not redeployed.
 
 Architecture diagram incremental validation on 2026-09-30, after 17:08 CEST:
 `npm run typecheck` and `npm test` passed (13 tests and production Expo export).
@@ -674,6 +1109,19 @@ PowerShell. Directory registration creation remains a future deployment step.
   no page overflow on direct loads at 320px and 1440px, and working navigation
   to Example questions. Frontend is Running with no managed identity; live
   MCP roles remain subscription Reader and scoped Log Analytics Reader.
+
+### NN brand restyle frontend-only redeployment (2026-10-02)
+
+- [x] User confirmed NN has authorized use of its official logo for this demo.
+  Logo sourced from nn.nl; NN proprietary fonts and photography not bundled.
+- [x] Application validation: typecheck, 13 tests and Expo production export.
+- [x] Recipe core validation and policy review recorded in Validation Proof.
+- [x] Static roles unchanged: the frontend has no managed identity or data roles.
+- [x] Operator reconfirmed target. Published 236,230-byte frontend-only ZIP;
+  deployment `65f0a844-78af-49a1-992e-a467e721694e` RuntimeSuccessful (1 ok,
+  0 failed). Hosted health, pages, runtime config, both logo SVGs and bundle
+  `index-6ba5d45d03b277b664861cb3e088dd94.js` return HTTP 200; sign-in enabled,
+  no page overflow. Backend, indexer, infrastructure and roles unchanged.
 
 ### Static role assignment verification
 

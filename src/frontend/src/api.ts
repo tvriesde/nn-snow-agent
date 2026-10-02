@@ -1,7 +1,7 @@
 import type { EmployeeAuth } from './auth';
-import { parseChatResult, parseExamples } from './contracts';
+import { parseChatResult, parseExamples, parseModels } from './contracts';
 type AuthTransport = Pick<EmployeeAuth, 'config' | 'token'>;
-export async function apiRequest(auth: AuthTransport, route: string, message?: string, conversationId?: string): Promise<unknown> {
+export async function apiRequest(auth: AuthTransport, route: string, message?: string, conversationId?: string, modelId?: string): Promise<unknown> {
   const token = await auth.token();
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 90000);
@@ -9,7 +9,7 @@ export async function apiRequest(auth: AuthTransport, route: string, message?: s
     const response = await fetch(`${auth.config.apiBaseUrl}${route}`, {
       method: message === undefined ? 'GET' : 'POST',
       headers: { Authorization: `Bearer ${token}`, ...(message === undefined ? {} : { 'Content-Type': 'application/json' }) },
-      body: message === undefined ? undefined : JSON.stringify({ message, ...(conversationId ? { conversationId } : {}) }),
+      body: message === undefined ? undefined : JSON.stringify({ message, ...(conversationId ? { conversationId } : {}), ...(modelId ? { modelId } : {}) }),
       signal: controller.signal,
       credentials: 'omit',
     });
@@ -25,5 +25,6 @@ export async function apiRequest(auth: AuthTransport, route: string, message?: s
     throw error;
   } finally { clearTimeout(timeout); }
 }
-export const sendChat = async (auth: AuthTransport, message: string, conversationId?: string) => parseChatResult(await apiRequest(auth, '/api/chat', message, conversationId));
+export const sendChat = async (auth: AuthTransport, message: string, conversationId?: string, modelId?: string) => parseChatResult(await apiRequest(auth, '/api/chat', message, conversationId, modelId));
 export const loadExamples = async (auth: AuthTransport) => parseExamples(await apiRequest(auth, '/api/examples'));
+export const loadModels = async (auth: AuthTransport) => parseModels(await apiRequest(auth, '/api/models'));

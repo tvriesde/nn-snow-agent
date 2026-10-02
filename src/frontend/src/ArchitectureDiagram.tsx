@@ -8,9 +8,9 @@ export function ArchitectureDiagram() {
   const arrowId = `${id}-arrow`;
   return <figure style={{ margin: 0 }}>
     <div role="region" aria-label="Scrollable architecture diagram" tabIndex={0}
-      style={{ overflowX: 'auto', border: `1px solid ${c('border')}`, borderRadius: 16, background: c('surface') }}>
+      style={{ overflowX: 'auto', border: `1px solid ${c('border')}`, borderRadius: 4, background: c('surface') }}>
       <svg viewBox="0 0 1000 790" role="img" aria-labelledby={`${id}-title ${id}-description`}
-        style={{ display: 'block', width: '100%', minWidth: 760, height: 'auto', fontFamily: '"Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif' }}>
+        style={{ display: 'block', width: '100%', minWidth: 760, height: 'auto', fontFamily: 'Helvetica, Arial, sans-serif' }}>
         <title id={`${id}-title`}>Employee IT Helpdesk architecture diagram</title>
         <desc id={`${id}-description`}>
           Employees sign in with Entra ID and use the Expo frontend to call the .NET backend over HTTPS with an employee token.

@@ -36,6 +36,9 @@ Use ASP.NET Core configuration (`__` replaces `:` in environment variables):
 | `Frontend__Origin` | One exact HTTPS origin, no wildcards or URL paths |
 | `AzureOpenAI__Endpoint`, `AzureOpenAI__ApiKey`, `AzureOpenAI__Deployment` | HTTPS Azure OpenAI endpoint, server-only Key Vault resolved API key, model deployment |
 | `AzureOpenAI__ReasoningEffort` | `low` for GPT-5 nano; `minimal` also supported; omit/empty for non-reasoning models |
+| `AzureOpenAI__DefaultModelId` | Default server-owned model ID, currently `gpt-5-nano` |
+| `AzureOpenAI__Models__0__Id`, `Label`, `Deployment`, `ReasoningEffort`, `Api` | Allowlisted model entry; repeat index. `Api` defaults to `chatCompletions`; luna uses `responses` |
+| `AzureOpenAI__Models__0__Pricing__InputPerMillion`, `CachedInputPerMillion`, `OutputPerMillion`, `MaximumInputTokens`, `Source`, `AsOf` | Optional complete, verified USD pricing and applicability; optional `CacheWritePerMillion` prevents estimates without write counts |
 | `Search__Endpoint`, `Search__IndexName` | Search HTTPS endpoint; index defaults to `servicenow-knowledge` |
 | `Azure__SubscriptionId`, `Azure__TenantId` | Operator-fixed investigation scope |
 | `Azure__ApplicationResources__0__Alias`, `Azure__ApplicationResources__0__ResourceId` | Authorized App Service alias/resource pairs; repeat numeric index |
@@ -51,6 +54,14 @@ filter `visibility eq 'employee'`; source detail reads additionally check that
 visibility before returning any content. No developer credential fallback.
 
 The model client uses Azure OpenAI's `/openai/v1/` Chat Completions API.
+GPT-6 luna instead uses the pinned Responses SDK adapter at `/openai/v1/responses`
+with low reasoning and `store=false`, preserving server-owned conversation
+history. Its Chat Completions API rejects function tools with low reasoning;
+there is no silent API/model/reasoning fallback. Both paths share the same
+evidence-bound function loop, strict output schema, budget and usage tracker.
+Pinned SDK Responses/typed reasoning experimental diagnostics are suppressed
+only at the specific integration surfaces; transport/tool-loop fixtures and
+synthetic live SDK calls verify compatibility.
 GPT-5 nano is configured with low reasoning, a 2,000-completion-token
 budget (including reasoning), and no temperature override. OpenAI SDK 2.14.0
 marks the typed reasoning parameter experimental; its use is narrowly scoped
@@ -110,10 +121,19 @@ request body or model key is intentionally logged by this backend.
 
 - `GET /health/live`: public `{ "status": "alive" }`, no dependency/configuration details.
 - `GET /api/examples`: authenticated `{id,category,question,evidence}[]`.
+- `GET /api/models`: authenticated `{defaultModelId,models:[{id,label}]}`; no deployment names or credentials.
 - `GET /api/sources/{id}`: authenticated employee-visible
   `{id,number,title,snippet,application}` or 404; unavailable dependency is 503.
-- `POST /api/chat`: authenticated `{message,conversationId?}`; response
-  `{conversationId,answer,knowledgeSources,azureEvidence,warnings}`.
+- `POST /api/chat`: authenticated `{message,conversationId?,modelId?}`; response
+  `{conversationId,answer,knowledgeSources,azureEvidence,warnings,processing}`.
+  Omitted selection uses the configured default; invalid IDs return 400 without
+  creating a conversation. Model changes preserve conversation history.
+  Processing reports server-agent elapsed time, selected model, actual invocation
+  count and complete usage summed across all tool-loop rounds. Cached input and
+  reasoning are subsets, not additional tokens. Partial/failed/streaming usage
+  withholds aggregate counts and estimates. Standalone health checks use the
+  MCP-only skill without invoking either model. Optional USD estimates cover
+  model tokens only; missing billing details explain why cost is unavailable.
 
 Entra v2 issuer, audience, lifetime/signature, exact delegated `scp` and tenant
 are checked. Application-role-only tokens are not accepted. Identity is the

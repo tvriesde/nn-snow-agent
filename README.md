@@ -17,7 +17,7 @@ See the [deployment plan](.azure/deployment-plan.md) for decisions and limits.
 Entra-authenticated employee
   -> Expo / React Native Web frontend on App Service
   -> ASP.NET Core / Microsoft Agent Framework backend on App Service
-       -> Azure OpenAI GPT deployment (server-side API key)
+       -> Azure OpenAI GPT-5 nano / GPT-6 luna (server-side API key)
        -> Azure AI Search (employee-visible knowledge only)
        -> official Azure MCP Server (managed identity; read-only tools)
 
@@ -32,11 +32,95 @@ Application Insights / Log Analytics
 React Native Web is the browser target. This project does not deliver an
 iOS/Android app-store binary.
 
+### Model selection and answer processing
+
+The chat model selector chooses **GPT-5 nano** (default, `helpdesk-mini`,
+`2025-08-07`) or **GPT-6 luna** (`helpdesk-luna`, `2026-09-22`) for the next
+question without clearing the conversation. Both use EU DataZoneStandard
+in Sweden Central; the new Luna deployment has capacity 10. Standalone
+application-health checks still run the MCP-only skill with no model calls,
+regardless of the selection.
+
+Authenticated `GET /api/models` returns only configured IDs and display labels.
+`POST /api/chat` accepts optional `modelId`; omission uses the configured
+default, and unknown IDs are rejected before creating a conversation.
+Configure `AzureOpenAI:Models:<index>:{Id,Label,Deployment,ReasoningEffort,Api}` and
+`AzureOpenAI:DefaultModelId`. Existing single-deployment configuration remains
+supported. Deployment names, endpoints and credentials cannot be supplied
+by employees. The dedicated [additional-model template](infra/additional-model.bicep)
+adds Luna to an existing account without redeploying other resources.
+Nano retains Chat Completions (`Api=chatCompletions`, also the legacy default);
+Luna uses Responses (`Api=responses`) because its live Chat Completions API
+rejects function tools with low reasoning. Both retain low reasoning and the
+2,000-output-token per-round budget. Luna explicitly disables provider response
+storage; conversation context remains in the existing application-owned store.
+
+Every answer shows elapsed server-agent time (excluding browser/network time),
+selected model, actual provider model when reported, and inference-call count.
+Token totals sum every model round only if all rounds report consistent complete
+usage. Cached input and reasoning are included subsets; missing counts are not
+zero. Optional `Pricing` configuration requires verified USD rates per million,
+`MaximumInputTokens`, HTTPS `Source` and `AsOf` date. The estimate excludes
+Search, MCP, hosting, tax and discounts. Luna estimates are withheld because
+its cache-write billing counts/context-tier applicability are not fully verified.
+Unavailable usage/cost is explained, never fabricated.
+
 The backend uses pinned Microsoft Agent Framework and official MCP SDK
-packages. The Azure MCP executable is pinned to `3.0.0-beta.48`, a preview
-release whose tool schemas and hosted-identity invocation have been verified
-locally. Treat this as a demo dependency, not an unsupported claim of
-production certification. Its use for this demo was explicitly approved.
+packages. The Azure MCP executable is pinned to `3.0.0-beta.49`, a beta
+release published on 2026-10-01. The official Linux x64 archive and executable
+are SHA-256-pinned in `scripts/common.ps1`; the trusted NuGet fallback must
+match the same executable hash. Offline stdio/allowlist/schema contract tests
+passed against the matching Windows x64 release on 2026-10-02 without Azure
+calls. Linux hosted-identity/live tool behavior must be reverified at deployment.
+Treat the beta as a demo dependency, not production certification.
+Official release: https://github.com/microsoft/mcp/releases/tag/Azure.Mcp.Server-3.0.0-beta.49
+
+### Evaluated application health skill
+
+The backend publishes the exact
+[azure-health-model-state skill](.github/skills/azure-health-model-state/SKILL.md)
+as `skills/azure-health-model-state/SKILL.md`. Startup loads its source rules,
+resolution workflow and reporting instructions; editor setup and historical
+examples are excluded from the agent prompt. Application-health questions use
+`GetApplicationHealth`, not infrastructure `InvestigateAzure`.
+
+The skill uses only the packaged Azure MCP `monitor_healthmodels_list` and
+`monitor_healthmodels_get`, with fresh schema-validated calls under the dedicated
+managed identity. The native allowlist now contains six read-only commands.
+Only `results.healthModel.healthState` determines Healthy, Degraded, Unhealthy
+or Unknown. Provisioning success, metrics, missing alerts and platform Resource
+Health cannot establish evaluated application health. The report is server-owned
+and cannot be overwritten by model-generated text.
+
+Hosted adaptation keeps all lookups in `Azure:SubscriptionId`, rather than
+enumerating employees' subscriptions. `Azure:HealthApplication` is the exact
+application-tag value for "this helpdesk" (`employee-it-helpdesk` in this demo).
+Applications/custom tags match exactly after trimming, case-insensitively;
+model names/resource IDs also require exact matches. Multiple matches request
+selection and name-only candidates are unconfirmed, without reporting their
+health. Missing models, inaccessible commands or missing evaluated state
+produce explicit Unknown/evidence-gap reports, never another application's
+health. Discovery is bounded to 20 models and 45 seconds; specify a model and
+resource group for larger subscriptions. No CLI/REST fallback, cached health,
+entity guessing, health-model mutation or added RBAC is used.
+
+Health answers now lead with a plain-language state/meaning, UTC check time
+and any evidence gap. Technical model/tag/subscription/command/provisioning
+details remain in expandable Azure evidence. The locally verified beta.49
+MCP command set has no component-health or failing-signal command: Degraded
+cannot identify a contributing service or root cause. The report explicitly
+states this limitation rather than attributing degradation to an arbitrary
+service. All health lookups remain MCP-only.
+
+Unambiguous standalone questions such as "Is this IT helpdesk application
+healthy right now?" route directly to the packaged skill: no Search prefetch
+and no OpenAI/tool-loop generation rounds. Mixed questions, unclear names,
+model-name queries and context-dependent follow-ups retain normal agent
+routing. Every check still freshly lists/resolves/gets its model, so new
+ambiguity is not hidden by a resolution cache. The MCP process/connection
+remains reusable. Skill duration and MCP call count are logged for measurement;
+Azure response time and F1 cold starts remain. No paid hosting or inferred
+health cache is introduced.
 
 ## Project layout
 
@@ -98,12 +182,16 @@ server uses `PORT` (default 8080) and serves public configuration from
 The frontend refuses sign-in/chat when those settings are missing. The SPA
 registration must include the exact frontend root redirect URL.
 
-The employee interface uses an NN-inspired orange-and-white visual direction:
-a two-level header, welcoming hero, original workplace illustration, and
-question cards. It is explicitly labeled as a demo, not an official NN service;
-no NN photography, proprietary fonts, or official logo assets are bundled.
-Light/dark themes use shared CSS tokens with darker orange for readable
-text and primary actions. Sign-in, chat, evidence inspection, and example
+The employee interface follows nn.nl's visual language: a sand-coloured portal
+bar, a white header with the official Nationale-Nederlanden logo (used with
+NN's authorization), orange hero headings in a white card, dark-grey 4px
+buttons, softly shadowed tiles with orange arrows, and a sand footer. The logo
+is bundled as `public/nn-logo.svg`; `public/nn-logo-dark.svg` only switches the
+wordmark to white for dark mode. NN's proprietary Nitti Grotesk fonts and NN
+photography are not bundled; Helvetica/Arial is used instead. The interface
+remains explicitly labeled as a demo, not an official NN service.
+Light/dark themes use shared CSS tokens; small orange text uses a darker
+orange for readable contrast. Sign-in, chat, evidence inspection, and example
 filtering retain their existing behavior.
 The **Architecture & agent** page at `/architecture` includes a theme-aware
 architecture diagram with an accessible description and an editable Excalidraw

@@ -115,7 +115,8 @@ public sealed class ModelChatOptionsTests
             {"id":"chatcmpl-tool","object":"chat.completion","created":1,"model":"gpt-5-nano",
             "choices":[{"index":0,"message":{"role":"assistant","content":null,"tool_calls":[
             {"id":"call-search","type":"function","function":{"name":"SearchKnowledge","arguments":"{\"query\":\"MFA\"}"}}
-            ]},"finish_reason":"tool_calls"}],"usage":{"prompt_tokens":1,"completion_tokens":1,"total_tokens":2}}
+            ]},"finish_reason":"tool_calls"}],"usage":{"prompt_tokens":100,"completion_tokens":20,"total_tokens":120,
+            "prompt_tokens_details":{"cached_tokens":10},"completion_tokens_details":{"reasoning_tokens":5}}}
             """;
         using var handler = new RecordingHandler(toolResponse);
         using var http = new HttpClient(handler);
@@ -126,6 +127,8 @@ public sealed class ModelChatOptionsTests
                 Transport = new HttpClientPipelineTransport(http)
             });
         var ledger = new EvidenceLedger();
+        var processing = new ProcessingTracker(new ConfiguredModel
+        { Id = "nano", Label = "Nano", Deployment = "gpt-5-nano" });
         ledger.Knowledge["kb-current"] = new("kb-current", "KB0001", "Sign-in", "Safe guidance", "Claims");
         var tools = new List<AITool>
         {
@@ -139,9 +142,13 @@ public sealed class ModelChatOptionsTests
         {
             ChatOptions = ModelChatOptions.Create("Ground answers in evidence.", tools, "minimal"),
             UseProvidedChatClientAsIs = true
-        }, clientFactory: chatClient => new FunctionInvokingChatClient(new EvidenceBoundChatClient(chatClient, ledger)));
+        }, clientFactory: chatClient => new FunctionInvokingChatClient(new EvidenceBoundChatClient(chatClient, ledger, processing)));
         await agent.RunAsync([new Microsoft.Extensions.AI.ChatMessage(ChatRole.User, "Test")]);
         Assert.Equal(2, handler.RequestBodies.Count);
+        var totals = processing.Finish();
+        Assert.Equal(2, totals.ModelCalls);
+        Assert.Equal(new TokenUsage(101, 21, 122, 10, 5), totals.Tokens);
+        Assert.Equal("gpt-5-nano", totals.ProviderModel);
         for (var index = 0; index < handler.RequestBodies.Count; index++)
         {
             using var request = JsonDocument.Parse(handler.RequestBodies[index]);
@@ -221,7 +228,7 @@ public sealed class ModelChatOptionsTests
             {
                 Content = new StringContent(
                     RequestBodies.Count == 1 && firstResponse is not null ? firstResponse :
-                        """{"id":"chatcmpl-test","object":"chat.completion","created":1,"model":"gpt-5-nano","choices":[{"index":0,"message":{"role":"assistant","content":"OK"},"finish_reason":"stop"}],"usage":{"prompt_tokens":1,"completion_tokens":1,"total_tokens":2}}""",
+                        """{"id":"chatcmpl-test","object":"chat.completion","created":1,"model":"gpt-5-nano","choices":[{"index":0,"message":{"role":"assistant","content":"OK"},"finish_reason":"stop"}],"usage":{"prompt_tokens":1,"completion_tokens":1,"total_tokens":2,"prompt_tokens_details":{"cached_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}""",
                     Encoding.UTF8, "application/json")
             };
         }

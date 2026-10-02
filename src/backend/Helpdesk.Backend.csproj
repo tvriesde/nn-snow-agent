@@ -13,4 +13,9 @@
     <PackageReference Include="ModelContextProtocol" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.12" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\.github\skills\azure-health-model-state\SKILL.md"
+             Link="skills\azure-health-model-state\SKILL.md"
+             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

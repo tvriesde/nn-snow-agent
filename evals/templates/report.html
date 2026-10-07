@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Helpdesk agent evaluation</title>
+<script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+<style>
+:root {
+  color-scheme: light;
+  --cp-bg: #f7f4ef;
+  --cp-bg-elevated: #fcfbf8;
+  --cp-surface: #ffffff;
+  --cp-surface-soft: #f5f5f5;
+  --cp-border: #dedede;
+  --cp-border-strong: #919191;
+  --cp-text: #242424;
+  --cp-text-muted: #5c5c5c;
+  --cp-text-soft: #6f6f6f;
+  --cp-accent: #b11f4b;
+  --cp-accent-hover: #9a1a41;
+  --cp-accent-soft: rgba(177, 31, 75, 0.08);
+  --cp-accent-fg: #ffffff;
+  --cp-success: #16a34a;
+  --cp-danger: #dc2626;
+  --cp-warning: #f59e0b;
+  --cp-link: #0078d4;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+  --cp-overlay: rgba(255, 255, 255, 0.8);
+  --cp-panel: rgba(255, 255, 255, 0.86);
+  --cp-panel-strong: rgba(255, 255, 255, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.55);
+  --cp-highlight: rgba(177, 31, 75, 0.12);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #3d3b3a;
+  --cp-bg-elevated: #343231;
+  --cp-surface: #292929;
+  --cp-surface-soft: #2e2e2e;
+  --cp-border: #474747;
+  --cp-border-strong: #5f5f5f;
+  --cp-text: #dedede;
+  --cp-text-muted: #919191;
+  --cp-text-soft: #b0b0b0;
+  --cp-accent: #fd8ea1;
+  --cp-accent-hover: #fb7b91;
+  --cp-accent-soft: rgba(253, 142, 161, 0.14);
+  --cp-accent-fg: #1a1a1a;
+  --cp-success: #4ade80;
+  --cp-danger: #f87171;
+  --cp-warning: #fbbf24;
+  --cp-link: #4da6ff;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  --cp-overlay: rgba(41, 41, 41, 0.88);
+  --cp-panel: rgba(41, 41, 41, 0.72);
+  --cp-panel-strong: rgba(41, 41, 41, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.04);
+  --cp-highlight: rgba(253, 142, 161, 0.12);
+}
+body { margin: 0; padding: 32px; background: var(--cp-bg); color: var(--cp-text);
+  font: 16px/1.5 "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; }
+main { max-width: 1440px; margin: auto; }
+h1 { color: var(--cp-accent); }
+p { max-width: 960px; }
+.muted { color: var(--cp-text-muted); }
+section { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; padding: 24px; margin: 24px 0; }
+input, select, button { font: inherit; padding: 8px 12px; border: 1px solid var(--cp-border-strong); border-radius: 0.625rem;
+  background: var(--cp-surface-soft); color: var(--cp-text); max-width: 100%; }
+button { cursor: pointer; }
+input[type="search"] { width: min(440px, 90%); }
+.filters { display: flex; flex-wrap: wrap; align-items: end; gap: 16px; }
+.filters label { display: flex; flex-direction: column; gap: 4px; }
+.filters .checkbox { flex-direction: row; align-items: center; }
+.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 16px; }
+.guide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: 24px; }
+.guide-grid dt { font-weight: 600; margin-top: 12px; }
+.guide-grid dd { margin: 4px 0 12px; }
+.chart { border: 1px solid var(--cp-border); border-radius: 16px; padding: 16px; }
+.chart h3 { margin-top: 0; }
+.series { margin: 12px 0; }
+.series-label { display: flex; justify-content: space-between; gap: 12px; overflow-wrap: anywhere; }
+.track { height: 12px; border-radius: 0.625rem; background: var(--cp-surface-soft); margin: 4px 0; overflow: hidden; }
+.bar { height: 100%; background: var(--cp-accent); }
+.error { color: var(--cp-danger); }
+[hidden] { display: none !important; }
+.table { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--cp-border); }
+th { background: var(--cp-surface-soft); }
+details { padding: 16px; margin: 12px 0; border: 1px solid var(--cp-border); border-radius: 0.625rem; }
+summary { cursor: pointer; color: var(--cp-accent); }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.5 Consolas, "Courier New", Courier, monospace; }
+</style>
+</head>
+<body><main>
+<h1>Helpdesk agent evaluation</h1>
+<p>Actual application prompt, tool loop, employee-visible Azure AI Search evidence, and local Azure AI Evaluation SDK scoring.</p>
+<p><!-- WORKLOAD --></p>
+<section id="metric-guide" aria-labelledby="metric-guide-title">
+<h2 id="metric-guide-title">How to read this evaluation</h2>
+<p>Categories describe the kind of question; metrics measure different aspects of the response.
+A good result means answering from evidence when possible, admitting missing information when necessary,
+and refusing unsafe requests. There is no single combined quality score.</p>
+<p class="muted">The metrics combine SDK model-judged quality scores, deterministic source/execution checks,
+question-specific behavior rubrics and runtime measurements. Judge scores are assessments, not guarantees of correctness.</p>
+<div class="guide-grid">
+<div><h3>Question categories and report views</h3>
+<dl>
+<dt>Answerable</dt><dd>The indexed content supports an answer. The model should cover the required facts and cite supporting sources.
+Groundedness, relevance, retrieval quality and intent resolution are graded only for this category.</dd>
+<dt>Unanswerable / missing information</dt><dd>The requested detail is absent from the approved evidence.
+Success means acknowledging that gap without guessing, then suggesting an appropriate next step.
+The expected-behavior rubric grades this, not literal fulfillment of the request.</dd>
+<dt>Safety</dt><dd>The request requires a refusal or safe redirection, such as an MFA bypass request.
+Success means following policy and offering safe alternatives, not carrying out the unsafe action.</dd>
+<dt>Overall (all cases)</dt><dd>A combined view of the cases actually run. Each metric still uses only its eligible cases;
+an overall groundedness score does not include safety or missing-information responses.</dd>
+<dt>Retrieval-hard</dt><dd>A derived subgroup where the initial Search top five missed all expected supporting sources.
+This is not the question's authored difficulty. Empty subgroups are omitted per model.</dd>
+</dl></div>
+<div><h3>Metric types</h3>
+<dl>
+<dt>Evidence and source checks</dt><dd><strong>Groundedness</strong> checks claims against the context actually retrieved.
+<strong>Citation validity</strong> checks that raw and server-owned IDs were retrieved;
+<strong>supporting citations</strong> checks for an expected supporting source. Citations are separate metadata, not required inline text.</dd>
+<dt>Answer quality</dt><dd><strong>Relevance</strong> measures whether the answer addresses the question;
+<strong>intent resolution</strong> measures whether it resolves an answerable request.
+<strong>Response completeness</strong> and <strong>semantic similarity</strong> compare the answer with the expected reference.
+<strong>Lexical F1</strong> measures word overlap: a correct, verbose paraphrase can have low F1.</dd>
+<dt>Retrieval performance</dt><dd><strong>Retrieval quality</strong> judges the usefulness of retrieved context.
+<strong>Initial retrieval hit@5</strong> checks for an expected source in the first search;
+<strong>retrieval hit after all searches</strong> includes any later model-requested re-search.
+Source-hit checks require an expected supporting source.</dd>
+<dt>Behavior and policy</dt><dd><strong>Required-fact recall</strong> is the fraction of expected facts covered, when facts are specified.
+<strong>Expected behavior</strong> checks grounded answering, correct abstention or safe refusal.
+For grounded answers it requires complete fact recall, valid supporting citations and no forbidden claims.
+<strong>Forbidden claims</strong> flags disallowed assertions, such as invented details or successful actions.</dd>
+<dt>Agent execution</dt><dd><strong>Operational success</strong> checks that execution completed without an operational failure.
+<strong>Task adherence</strong> checks actual model JSON against instructions and policy.
+<strong>Tool-call accuracy</strong> grades model-requested calls only; server-driven initial Search is excluded.
+<strong>Unexpected tool calls</strong> flags calls outside this benchmark's allowed tools.</dd>
+<dt>Efficiency and estimates</dt><dd><strong>Response latency</strong> is server-measured milliseconds;
+<strong>candidate tokens</strong> covers all candidate model rounds.
+<strong>Candidate token estimate</strong> is USD only when prices and billing counts are verified.
+Token counts exclude judge tokens; cost estimates exclude judge inference and other Azure services.
+Compare efficiency alongside quality.</dd>
+</dl></div>
+</div>
+<h3>Scores, coverage and missing values</h3>
+<ul>
+<li>Most judge quality scores use <strong>1-5</strong>, with higher better. Task adherence and positive yes/no checks use
+<strong>0-1</strong>, where 1 is a pass; F1 and fact recall are fractions. For forbidden claims and unexpected calls,
+<strong>0 is better</strong>. Charts show each metric's direction and scale.</li>
+<li><strong>Scored / eligible (total)</strong> distinguishes measured cases from all cases run.
+For example, 1/1 eligible (3 total) means one case contributes and two are excluded.
+Means omit missing values; pass-rate denominators count known pass/fail outcomes.</li>
+<li><strong>Scored</strong> means measurements exist, not that they passed.
+<strong>Partial</strong> means only some cases contribute.
+<strong>Not applicable</strong> means no eligible cases for that metric;
+<strong>unavailable</strong> means a measurement cannot be reported, such as an unverified cost.
+<strong>Missing</strong> indicates an eligible numeric score is absent; <strong>failed</strong> indicates known failures with no numeric scores.
+Neither is a substitute for an inapplicable evaluation.</li>
+<li>Missing values are never zero. Metrics with no eligible cases make no judge calls; charts with no eligible cases
+across the model cohort are skipped. A limited verification sample is not a reliable model ranking.</li>
+</ul>
+</section>
+<p class="muted">Descriptive standard deviation is not a confidence interval. Missing scores and costs are not zero.
+Coverage denominators are shown. Task adherence is binary (1 = pass, 0 = failure), not a 1-5 score.
+Candidate token estimates exclude judge calls and other Azure services.</p>
+<section><h2>Saved-result validation</h2>
+<p class="muted">Checks saved workloads, approved references, corpus fingerprints, source excerpts and deterministic score consistency.
+This is not an independent re-judging of every semantic SDK score. Empty subgroups are omitted, not scored as zero.
+Relevance/intent measure answerable requests only; correct refusal and missing-information handling use the behavior rubric.
+Lexical F1 is not a correctness gate.</p>
+<!-- VALIDATION -->
+</section>
+<section><h2>Comparison filters</h2>
+<div class="filters">
+<label for="model-filter">Table / drill-down model<select id="model-filter"><option value="">All models</option></select></label>
+<label for="category-filter">Category<select id="category-filter"><option value="all">Overall (all cases)</option><option value="">All breakdowns (table)</option></select></label>
+<label for="metric-filter">Metric<select id="metric-filter"><option value="">All metrics</option></select></label>
+<label for="status-filter">Coverage status<select id="status-filter"><option value="">All statuses</option></select></label>
+<label for="filter">Search table<input id="filter" type="search" placeholder="e.g. groundedness or missing"></label>
+<label class="checkbox"><input id="show-inapplicable" type="checkbox">Show inapplicable metrics</label>
+<button id="reset-filters" type="button">Reset filters</button>
+</div>
+</section>
+<section><h2>Metric charts - all models</h2>
+<p class="muted">Category and metric filters apply to charts. The model, coverage and text filters affect the table only,
+so charts always compare the entire model cohort. Raw means use a common scale within each metric, not across different metrics.
+Missing values have no bar. Sample size and score direction are shown; this verification sample cannot establish a model ranking.</p>
+<p id="chart-status" role="status"></p><div id="charts" class="charts"></div>
+</section>
+<section><h2>Model comparison</h2><p id="table-status" role="status"></p>
+<div class="table"><table id="comparison-table"><thead><tr><th>Run / model</th><th>Category</th><th>Metric</th><th>Mean +/- SD</th>
+<th>Scoring coverage</th><th>Pass rate</th><th>Status</th><th>Explanation</th></tr></thead><tbody><!-- SUMMARY --></tbody></table></div></section>
+<section id="drilldown"><h2>Worst-item drill-down</h2><p class="muted">Model and category filters apply here. Operational failures and failed behaviors appear first.
+Expand an item to inspect its answer, expected facts, citations and exact retrieved evidence.</p>
+<!-- DETAILS -->
+</section></main>
+<script type="application/json" id="report-data"><!-- DATA --></script>
+<script>
+const report = JSON.parse(document.getElementById("report-data").textContent);
+const byId = id => document.getElementById(id);
+const controls = ["model-filter", "category-filter", "metric-filter", "status-filter", "filter", "show-inapplicable"];
+const tableRows = [...document.querySelectorAll("#comparison-table tbody tr")];
+function option(select, value, label) {
+  const item = document.createElement("option");
+  item.value = value;
+  item.textContent = label;
+  select.append(item);
+}
+report.models.forEach(model => option(byId("model-filter"), model, model));
+[...new Set(report.summary.map(row => row.category))].filter(category => category !== "all")
+  .forEach(category => option(byId("category-filter"), category, category));
+Object.entries(report.metrics).forEach(([metric, spec]) => option(byId("metric-filter"), metric, spec.label + " (" + metric + ")"));
+[...new Set(report.summary.map(row => row.status))].forEach(status => option(byId("status-filter"), status, status.replaceAll("_", " ")));
+function node(tag, text, className) {
+  const element = document.createElement(tag);
+  if (text !== undefined) element.textContent = text;
+  if (className) element.className = className;
+  return element;
+}
+function format(value, metric) {
+  return metric === "model_token_cost_usd" ? value.toFixed(7) : value.toFixed(3);
+}
+function charts() {
+  const category = byId("category-filter").value || "all";
+  const metric = byId("metric-filter").value;
+  const host = byId("charts");
+  host.replaceChildren();
+  const skipped = [];
+  Object.entries(report.metrics).filter(([name]) => !metric || name === metric).forEach(([name, spec]) => {
+    const entries = report.models.map(model => report.summary.find(row => row.model === model && row.category === category && row.metric === name));
+    if (!entries.some(row => row && row.eligible > 0)) {
+      skipped.push(spec.label);
+      return;
+    }
+    const finite = entries.filter(row => row && Number.isFinite(row.mean)).map(row => row.mean);
+    const maximum = spec.maximum || Math.max(0, ...finite) || 1;
+    const card = node("article", undefined, "chart");
+    card.dataset.metric = name;
+    card.dataset.category = category;
+    card.append(node("h3", spec.label), node("p", (spec.lowerIsBetter ? "Lower is better" : "Higher is better") + " | " + category, "muted"),
+      node("p", spec.note, "muted"));
+    report.models.forEach((model, index) => {
+      const row = entries[index];
+      const series = node("div", undefined, "series");
+      series.dataset.model = model;
+      const label = node("div", undefined, "series-label");
+      label.append(node("span", model));
+      if (row && Number.isFinite(row.mean)) {
+        series.dataset.value = row.mean;
+        label.append(node("strong", format(row.mean, name)));
+        const track = node("div", undefined, "track");
+        track.setAttribute("role", "img");
+        track.setAttribute("aria-label", model + ": " + format(row.mean, name) + "; " + row.scored + " scored of " + row.eligible + " eligible");
+        const bar = node("div", undefined, "bar");
+        bar.style.width = Math.max(0, Math.min(100, row.mean / maximum * 100)) + "%";
+        track.append(bar);
+        series.append(label, track, node("small", row.scored + "/" + row.eligible + " eligible; " + row.total + " total cases | " + row.status, "muted"));
+      } else {
+        label.append(node("strong", !row ? "No qualifying cases" : row.status.replaceAll("_", " ")));
+        series.append(label, node("small", row ? row.reason : "This model has no cases in the selected subgroup.", "muted"));
+      }
+      card.append(series);
+    });
+    card.append(node("small", "Common bar scale: 0 to " + format(maximum, name), "muted"));
+    host.append(card);
+  });
+  byId("chart-status").textContent = host.children.length + " metric charts. " +
+    (skipped.length ? "Skipped (no eligible cases for any model): " + skipped.join(", ") + "." : "");
+}
+function filterTable() {
+  const model = byId("model-filter").value;
+  const category = byId("category-filter").value;
+  const metric = byId("metric-filter").value;
+  const status = byId("status-filter").value;
+  const query = byId("filter").value.toLowerCase().trim();
+  tableRows.forEach(row => {
+    row.hidden = Boolean((model && row.dataset.model !== model) || (category && row.dataset.category !== category) ||
+      (metric && row.dataset.metric !== metric) || (status && row.dataset.status !== status) ||
+      (!byId("show-inapplicable").checked && row.dataset.status === "not_applicable") ||
+      !row.textContent.toLowerCase().includes(query));
+  });
+  const visible = tableRows.filter(row => !row.hidden).length;
+  byId("table-status").textContent = visible + " of " + tableRows.length + " summary rows shown." +
+    (!visible ? " No rows match these filters." : "");
+  document.querySelectorAll("#drilldown details").forEach(detail => {
+    detail.hidden = Boolean((model && detail.dataset.model !== model) ||
+      (category && category !== "all" && (category === "retrieval_hard" ? detail.dataset.retrievalHard !== "true" : detail.dataset.category !== category)));
+  });
+}
+controls.forEach(id => byId(id).addEventListener(id === "filter" ? "input" : "change", () => {
+  if (id === "status-filter" && byId(id).value === "not_applicable") byId("show-inapplicable").checked = true;
+  filterTable();
+  if (id === "category-filter" || id === "metric-filter") charts();
+}));
+byId("reset-filters").addEventListener("click", () => {
+  controls.forEach(id => { if (id === "show-inapplicable") byId(id).checked = false; else byId(id).value = id === "category-filter" ? "all" : ""; });
+  filterTable();
+  charts();
+});
+filterTable();
+charts();
+</script>
+</body></html>

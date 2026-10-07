@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/evals/" />
+  <Folder Name="/evals/runner/">
+    <Project Path="evals/runner/Helpdesk.Evaluation.Runner.csproj" />
+  </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/backend/">
     <Project Path="src/backend/Helpdesk.Backend.csproj" />
@@ -12,6 +16,9 @@
   <Folder Name="/tests/" />
   <Folder Name="/tests/backend/">
     <Project Path="tests/backend/Helpdesk.Backend.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/evals/">
+    <Project Path="tests/evals/Helpdesk.Evaluation.Tests.csproj" />
   </Folder>
   <Folder Name="/tests/indexer/">
     <Project Path="tests/indexer/Helpdesk.Indexer.Tests.csproj" />

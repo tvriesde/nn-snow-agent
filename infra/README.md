@@ -9,6 +9,23 @@ explicitly approved execution of `deploy.ps1`.
 
 ## Resources and security
 
+### Local evaluation deployments
+
+`eval-models.bicep` adds `eval-gpt-5-mini`, `eval-gpt-4-1-mini`, `eval-gpt-4-1`
+and the separate GPT-5 `eval-judge` to the existing OpenAI account. All four
+are pinned, EU DataZoneStandard, capacity 10, without automatic upgrades.
+Two explicitly approved operator roles grant Search Index Data Reader on
+the demo Search service and Key Vault Secrets User scoped only to its
+`azure-openai-key` secret. No backend/frontend setting, existing model,
+index document or application identity is changed.
+
+`scripts/deploy-eval-models.ps1` defaults to ARM validation and an
+additive-only what-if; `-Deploy` requires the validated deployment plan.
+It rejects ownership/context mismatches and non-additive changes. See
+[local evaluation setup and results](../evals/README.md).
+
+### Hosted application resources
+
 `additional-model.bicep` deploys only GPT-6 luna `2026-09-22` as
 `helpdesk-luna` on an existing Azure OpenAI account, EU `DataZoneStandard`,
 capacity 10, with automatic upgrades disabled. It does not change the existing

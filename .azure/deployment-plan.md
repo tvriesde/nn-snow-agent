@@ -1,6 +1,83 @@
 # Insurance IT Helpdesk Agent - Deployment Plan
 
-Status: Deployed - verified multi-model application
+Status: Deployed and verified (local evaluation extension)
+
+## Local evaluation extension (2026-10-06)
+
+User approved the evaluation plan and implementation. Recipe: Bicep/Azure CLI.
+Reuse subscription d860292c-5d2c-4df3-b7c8-332bd46882d1 and the existing
+swedencentral OpenAI account in snowdemo-rg. Add only four named model
+deployments (gpt-5-mini, gpt-4.1-mini, gpt-4.1 and a separate gpt-5 judge)
+using DataZoneStandard after validation and what-if. Preserve all existing
+deployments, backend settings, hosting, index contents and live Azure permissions.
+User additionally approved operator Search Index Data Reader on the demo Search
+service and Key Vault Secrets User on the single azure-openai-key secret.
+The local runner references the real backend; SDK evaluation runs locally
+with no project upload. Dataset: 38 answerable, 6 unanswerable, 6 safety.
+Ground truth requires source-span validation, live-index drift checks,
+independent model review and an explicit human-approval artifact.
+
+### Section 7: Evaluation validation proof
+
+Runner build passed (no errors/warnings), exact seed projection exported,
+50-item offline ground-truth gates passed; evaluation Bicep compiled.
+Azure model catalog and dedicated Cognitive Services usage API confirm EU
+DataZoneStandard availability and quota headroom for capacity 10 on each of
+the four models. Generic Microsoft.Quota API reports BadRequest for this provider.
+Infrastructure validation completed 2026-10-06T10:03:30Z: shared validation
+script reports OVERALL PASS (CLI/auth, compilation, ARM validation, what-if).
+The additive-only guard also passed; no Modify/Delete changes are permitted.
+Proof saved in `.azure/evaluation-preflight.json`. Assigned subscription policy
+is the Security Center built-in initiative; ARM validation raised no policy denial.
+Static roles verified against Azure built-in role IDs: user principal scoped
+to this Search service and this one Key Vault secret, no application-role changes.
+Commands executed: `dotnet build evals\runner\Helpdesk.Evaluation.Runner.csproj`;
+`python -m helpdesk_evals.cli build-dataset`;
+`validate-deployment.ps1 -Scope group -ResourceGroup snowdemo-rg
+-Template .\infra\eval-models.bicep -Parameters .\.azure\evaluation.parameters.json
+-Subscription d860292c-5d2c-4df3-b7c8-332bd46882d1`;
+`scripts\deploy-eval-models.ps1` (validation only);
+`az policy assignment list`; `az role definition list` for both reader roles.
+Scope here is model deployments and two approved local operator data-reader
+roles only. No app release is part of this deployment; SDK scoring tests follow.
+
+### Evaluation: All validation checks pass
+
+- [x] Core validation: CLI/auth, Bicep build, ARM validate and scoped what-if.
+- [x] Policy validation: review assigned policies and ARM validation.
+- [x] Role verification: only operator Search reader and single-secret reader.
+- [x] Record timestamped validation evidence before model deployment.
+
+### Evaluation deployment and completion evidence
+
+- [x] Additive ARM deployment succeeded on 2026-10-06; persisted proof:
+  `.azure/evaluation-deployment.json`. Four new deployments and the two
+  approved operator-reader roles were provisioned without an application release.
+- [x] All five candidate models and the independent GPT-5 judge passed real
+  inference checks. Existing hosted model defaults and Search data are unchanged.
+- [x] All 50 ground-truth items passed exact-source gates and both complete
+  independent reviews. Human approval is persisted and hash-bound.
+- [x] Complete final live snapshot matches the approved 176-document corpus.
+  No API credential was found in evaluation source or generated artifacts.
+- [x] Balanced verification run: three questions, five models, 15 successful
+  responses through the real backend agent and Azure AI Search.
+- [x] Local Azure AI Evaluation SDK scoring completed. Task adherence grades
+  raw model JSON with the actual policy and evidence. Grounded-answer behavior
+  uses fact coverage, valid source metadata and forbidden-claim checks, rather
+  than misinterpreting the plain-text UI response as the model wire protocol.
+- [x] Authoritative `scores.json` files are strict JSON; unavailable scores
+  remain null, not zero. All 15 verification responses pass task and behavior
+  checks; each model scores 5/5 groundedness on its one answerable sample.
+- [x] Focused validation: 22 Python tests, 6 evaluation runner tests and 41
+  backend regression tests passed (69 total).
+- [x] Local HTML/CSV/Markdown comparison generated under
+  `evals/results/verification-20261006/report/`. Browser checks confirm filtering,
+  15 expandable responses, corrected grading reasons and performance metadata.
+
+This is an end-to-end verification sample, not a comprehensive model ranking.
+The full 50-question, three-repeat, five-model benchmark (750 responses) has
+not been run. Evaluation results remain local; no hosted frontend deployment
+or Foundry result upload was performed.
 
 Date: 2026-09-30
 

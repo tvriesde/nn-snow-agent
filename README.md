@@ -11,6 +11,16 @@ selected subscription is `d860292c-5d2c-4df3-b7c8-332bd46882d1`, and Sweden
 Central is the preferred region wherever the selected services are supported.
 See the [deployment plan](.azure/deployment-plan.md) for decisions and limits.
 
+## Local agent evaluation
+
+The [evaluation application](evals/README.md) calls the real backend agent
+locally and scores it with the Azure AI Evaluation SDK. It includes 50
+source-verified questions (38 answerable, 6 missing-information, 6 safety),
+two independent ground-truth reviews, live-index drift guards, five candidate
+model deployments and a separate GPT-5 judge. Comparison results are written
+to an interactive local HTML dashboard, CSV and Markdown. This does not
+alter the hosted frontend or its model catalog.
+
 ## Architecture
 
 ```text

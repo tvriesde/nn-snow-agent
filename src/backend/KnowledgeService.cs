@@ -2,6 +2,7 @@ using Azure.Identity;
 using Azure;
 using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
+using Azure.Core;
 
 namespace Helpdesk.Backend;
 
@@ -13,11 +14,11 @@ public interface IKnowledgeService
 public sealed class KnowledgeService : IKnowledgeService
 {
     private readonly SearchClient? client;
-    public KnowledgeService(IConfiguration config)
+    public KnowledgeService(IConfiguration config, TokenCredential? credential = null)
     {
         if (Uri.TryCreate(config["Search:Endpoint"], UriKind.Absolute, out var endpoint) && endpoint.Scheme == "https")
             client = new SearchClient(endpoint, config["Search:IndexName"] ?? "servicenow-knowledge",
-                new ManagedIdentityCredential(ManagedIdentityId.SystemAssigned));
+                credential ?? new ManagedIdentityCredential(ManagedIdentityId.SystemAssigned));
     }
     public async Task<IReadOnlyList<KnowledgeSource>> SearchAsync(string query, CancellationToken cancellationToken)
     {

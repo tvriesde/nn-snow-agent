@@ -1,0 +1,13 @@
+{
+  "AzureOpenAI": {
+    "DefaultModelId": "gpt-5-nano",
+    "Models": [
+      { "Id": "gpt-5-nano", "Label": "GPT-5 nano", "Deployment": "helpdesk-mini", "Api": "chatCompletions", "ReasoningEffort": "low" },
+      { "Id": "gpt-6-luna", "Label": "GPT-6 luna", "Deployment": "helpdesk-luna", "Api": "responses", "ReasoningEffort": "low" },
+      { "Id": "gpt-5-mini", "Label": "GPT-5 mini", "Deployment": "eval-gpt-5-mini", "Api": "chatCompletions", "ReasoningEffort": "low" },
+      { "Id": "gpt-4-1-mini", "Label": "GPT-4.1 mini", "Deployment": "eval-gpt-4-1-mini", "Api": "chatCompletions" },
+      { "Id": "gpt-4-1", "Label": "GPT-4.1", "Deployment": "eval-gpt-4-1", "Api": "chatCompletions" }
+    ]
+  },
+  "Evaluation": { "JudgeDeployment": "eval-judge", "JudgeIsReasoningModel": true, "ReviewerDeployments": ["eval-gpt-4-1", "eval-gpt-5-mini"] }
+}

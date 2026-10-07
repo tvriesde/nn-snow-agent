@@ -12,6 +12,8 @@ namespace Helpdesk.Backend;
 public sealed class HelpdeskAgent(IConfiguration config, IKnowledgeService knowledge, IAzureInvestigator azure,
     ApplicationHealthSkill healthSkill, IHelpdeskModelClientFactory models, ModelCatalog? modelCatalog = null)
 {
+    public const string NoKnowledgeSourcesWarning = "No employee-visible knowledge sources matched the query.";
+
     public async Task<ChatResponse> RunAsync(Conversation conversation, string message, bool offline, CancellationToken cancellationToken,
         string? modelId = null)
     {
@@ -55,7 +57,7 @@ public sealed class HelpdeskAgent(IConfiguration config, IKnowledgeService knowl
             {
                 var sources = await knowledge.SearchAsync(query, cancellationToken);
                 foreach (var source in sources) ledger.Knowledge[source.Id] = source;
-                if (sources.Count == 0) ledger.Warnings.Add("No employee-visible knowledge sources matched the query.");
+                if (sources.Count == 0) ledger.Warnings.Add(NoKnowledgeSourcesWarning);
                 return JsonSerializer.Serialize(sources);
             }
             catch (Exception) when (!cancellationToken.IsCancellationRequested)

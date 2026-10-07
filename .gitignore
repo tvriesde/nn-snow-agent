@@ -19,3 +19,8 @@
 *.log
 infra/main.json
 infra/modules/*.json
+evals/.venv/
+evals/results/
+evals/**/__pycache__/
+evals/*.egg-info/
+infra/eval-models.json
